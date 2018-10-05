@@ -56,7 +56,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_full_description"
             android:parentActivityName=".SongDetailActivity"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".RecordsActivity" />
+        <activity android:name=".ShareActivity"></activity>
     </application>
 
 </manifest>
