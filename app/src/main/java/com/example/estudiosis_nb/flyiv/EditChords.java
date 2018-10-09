@@ -20,7 +20,7 @@ public class EditChords extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it  = new Intent(EditChords.this, SelectChord.class);
+                Intent it  = new Intent(EditChords.this, SliderChords.class);
                 startActivity(it);
             }
         });

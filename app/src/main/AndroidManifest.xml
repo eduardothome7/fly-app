@@ -58,7 +58,9 @@
             android:parentActivityName=".SongDetailActivity"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".RecordsActivity" />
-        <activity android:name=".ShareActivity"></activity>
+        <activity
+            android:parentActivityName=".SongDetailActivity"
+            android:name=".ShareActivity" />
     </application>
 
 </manifest>
