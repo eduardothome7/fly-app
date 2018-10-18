@@ -1,74 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SongDetailActivity">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="20dp"
-        android:clickable="true"
-        android:tint="@android:color/white"
-        app:srcCompat="@android:drawable/ic_btn_speak_now" />
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="339dp"
-        android:layout_above="@+id/floatingActionButton3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+    <LinearLayout
+        android:layout_width="372dp"
+        android:layout_height="487dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
-            android:id="@+id/songDescription"
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:background="#f0f0f0"
-            android:onClick="editText"
-            android:padding="14dp"
-            android:text="@string/large_text"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
+            android:text="Título" />
 
-    </ScrollView>
+        <EditText
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Título da Composição" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="137dp"
-        android:orientation="vertical" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Letra" />
 
-    <TextView
-        android:id="@+id/songChords"
-        android:layout_width="236dp"
-        android:layout_height="39dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="29dp"
-        android:onClick="editChords"
-        android:text="__ #__  __m __º"
-        android:textColor="@color/colorAccent"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/txtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="148dp"
+            android:ems="10"
+            android:inputType="textMultiLine" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginTop="12dp"
+            android:paddingLeft="68dp"
+            android:text="Clique para definir acordes"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Áudios" />
+
+        <ListView
+            android:id="@+id/recordListView"
+            android:layout_width="match_parent"
+            android:layout_height="88dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="105dp"
+            android:layout_height="41dp"
+            android:layout_gravity="bottom|end"
+            android:backgroundTint="@android:color/white"
+            android:tint="@android:color/black"
+            app:backgroundTint="@android:color/white"
+            app:srcCompat="@android:drawable/ic_btn_speak_now" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -20,7 +20,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -29,13 +28,10 @@
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SongActivity"
-            android:label="@string/title_activity_song"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".SongDetailActivity"
-            android:parentActivityName=".MainActivity" />
+            android:label="Editar Composição"
+            android:parentActivityName=".MainActivity">
+        </activity>
         <activity
             android:name=".EditDescription"
             android:label="Editar Letra"

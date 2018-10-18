@@ -1,9 +1,12 @@
 package com.example.estudiosis_nb.flyiv;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.estudiosis_nb.flyiv.adapter.SongListAdapter;
+import com.example.estudiosis_nb.flyiv.model.Record;
 import com.example.estudiosis_nb.flyiv.model.Song;
 
 import java.util.ArrayList;
@@ -26,11 +30,13 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     List<Song> songs = new ArrayList<>();
     SongListAdapter adapter;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         adapter = new SongListAdapter(songs, this);
         final ListView mainListView = (ListView) findViewById(R.id.mainListView);
@@ -94,7 +100,15 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         //dao = new ProductDAO(this);
 
+        List<Record> records = new ArrayList<Record>();
+        Record rec1 = new Record("rec001.mp3",210,"/local/files/");
+        Record rec2 = new Record("rec002.mp3",210,"/local/files/");
+        records.add(rec1);
+        records.add(rec2);
+
+
         Song song1 = new Song("Sem título 01","Aqui vai a letra da música", "A F# G D");
+        song1.setRecords(records);
         songs.add(song1);
 
         Song song2 = new Song("Sem título 02","Aqui vai a letra da música", "G D C");

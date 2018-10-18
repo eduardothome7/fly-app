@@ -4,11 +4,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_shared"
-        android:icon="@drawable/ic_menu_share"
-        android:onClick="share"
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_check"
+        android:onClick="save"
         android:orderInCategory="100"
-        android:title="Compartilhar"
-        app:showAsAction="withText"/>
+        android:title="Save"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_shared"
+        android:icon="@drawable/ic_icons8_share"
+        android:onClick="share"
+        android:title="Share"
+        android:orderInCategory="200"
+        app:showAsAction="always"/>
 
 </menu>

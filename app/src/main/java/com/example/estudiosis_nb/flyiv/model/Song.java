@@ -10,6 +10,19 @@ public class Song implements Serializable {
     private String description;
     private long user_id;
     private List<Chord> listChords;
+    private List<Record> records;
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<Record> records) {
+        this.records = records;
+    }
+
+    public void addRecord(Record record){
+        this.records.add(record);
+    }
 
     public String getChords() {
         return chords;
