@@ -1,16 +1,17 @@
 package com.example.estudiosis_nb.flyiv.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Song implements Serializable {
     private long id;
     private String title;
-    private String chords;
+    private String chords = "";
     private String description;
     private long user_id;
-    private List<Chord> listChords;
-    private List<Record> records;
+    private List<Chord> listChords = new ArrayList<>();
+    private List<Record> records = new ArrayList<>();
 
     public List<Record> getRecords() {
         return records;

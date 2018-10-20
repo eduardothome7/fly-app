@@ -36,4 +36,10 @@ public class Record implements Serializable {
     public void setPath(String path) {
         this.path = path;
     }
+
+    public String getMinutes() {
+        int minutes = (this.duration % 3600) / 60;
+        int seconds = this.duration % 60;
+        return String.format("%02d:%02d", minutes, seconds);
+    }
 }

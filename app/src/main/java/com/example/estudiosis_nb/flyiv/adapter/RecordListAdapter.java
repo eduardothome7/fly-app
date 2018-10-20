@@ -61,7 +61,7 @@ public class RecordListAdapter extends BaseAdapter {
         View view = inflater.inflate(R.layout.record_item, null);
 
         TextView txtDuration = (TextView) view.findViewById(R.id.txtDuration);
-        txtDuration.setText(record.getDuration());
+        txtDuration.setText(record.getMinutes());
 
         return view;
     }

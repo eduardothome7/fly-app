@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="372dp"
         android:layout_height="487dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,14 +39,14 @@
         <EditText
             android:id="@+id/txtDescription"
             android:layout_width="match_parent"
-            android:layout_height="148dp"
+            android:layout_height="131dp"
             android:ems="10"
             android:inputType="textMultiLine" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/txtChords"
             android:layout_width="match_parent"
-            android:layout_height="49dp"
+            android:layout_height="37dp"
             android:layout_marginTop="12dp"
             android:paddingLeft="68dp"
             android:text="Clique para definir acordes"
@@ -61,12 +61,19 @@
         <ListView
             android:id="@+id/recordListView"
             android:layout_width="match_parent"
-            android:layout_height="88dp" />
+            android:layout_height="105dp" />
+
+        <TextView
+            android:id="@+id/msgAudios"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="Você não possui nenhuma faixa de aúdio"
+            android:visibility="invisible" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="105dp"
-            android:layout_height="41dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_gravity="bottom|end"
             android:backgroundTint="@android:color/white"
             android:tint="@android:color/black"
