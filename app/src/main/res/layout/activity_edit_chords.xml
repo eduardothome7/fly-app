@@ -25,19 +25,21 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="57dp"
-        android:visibility="invisible" />
+        android:columnWidth="100dp"
+        android:numColumns="auto_fit" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/msgChords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/gridChords"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="0dp"
+        android:gravity="center"
         android:layout_marginLeft="0dp"
         android:layout_marginBottom="-57dp"
-        android:text="TextView" />
+        android:text="Nenhum acorde selecionado para esta composição" />
 
 
 </RelativeLayout>

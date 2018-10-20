@@ -12,7 +12,7 @@ public class SongChord {
         this.note = note;
     }
 
-    public int getId() {
+    public int getI() {
         return i;
     }
 
