@@ -10,7 +10,7 @@ public class Song implements Serializable {
     private String chords = "";
     private String description;
     private long user_id;
-    private List<Chord> listChords = new ArrayList<>();
+    private List<SongChord> listChords = new ArrayList<>();
     private List<Record> records = new ArrayList<>();
 
     public List<Record> getRecords() {
@@ -47,16 +47,16 @@ public class Song implements Serializable {
 
     }
 
-    public List<Chord> getListChords() {
+    public List<SongChord> getListChords() {
         return listChords;
     }
 
-    public void setListChords(List<Chord> listChords) {
+    public void setListChords(List<SongChord> listChords) {
         this.listChords = listChords;
     }
 
-    public void add(Chord chord) {
-        this.listChords.add(chord);
+    public void add(SongChord songChord) {
+        this.listChords.add(songChord);
     }
 
     public void downTone(int tone){

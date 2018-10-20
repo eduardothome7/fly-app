@@ -45,42 +45,13 @@ public class SongDetailActivity extends AppCompatActivity {
 
         Intent it = getIntent();
 
-        if(it.getExtras() != null){
+        if(it.getExtras() != null ){
             this.song = (Song) it.getSerializableExtra("song");
         } else {
             this.song = new Song("Nova composição","Clique aqui para editar a letra da composição,", USER_ID);
         }
 
-        txtTitle = (EditText) findViewById(R.id.txtTitle);
-        txtTitle.setText(song.getTitle());
-
-        txtDescription = (EditText) findViewById(R.id.txtDescription);
-        txtDescription.setText(song.getDescription());
-
-        if(this.song.getChords().length() > 0){
-            txtChords = (TextView) findViewById(R.id.txtChords);
-            txtChords.setText(this.song.getChords());
-        }
-
-        msgAudios = (TextView) findViewById(R.id.msgAudios);
-
-        //if(this.song.getRecords().size() == 0){
-         //   msgAudios.setVisibility(TextView.VISIBLE);
-        //} else {
-          //  msgAudios.setVisibility(TextView.INVISIBLE);
-        //}
-
-        /*records.add(new Record("file001.wav",140,"/audios/mp3"));
-        records.add(new Record("file002.wav",120,"/audios/mp3"));
-        records.add(new Record("file003.wav",110,"/audios/mp3")); */
-
-        if(this.song.getRecords().size() > 0){
-            RecordListAdapter adapter = new RecordListAdapter(this.song.getRecords(), this);
-            ListView recordListView = (ListView) findViewById(R.id.recordListView);
-            recordListView.setAdapter(adapter);
-        } else {
-            msgAudios.setVisibility(TextView.VISIBLE);
-        }
+        this.populateFields(this.song);
     }
 
     @Override
@@ -91,7 +62,17 @@ public class SongDetailActivity extends AppCompatActivity {
 
     public void editChords(View view) {
         Intent it = new Intent(SongDetailActivity.this, EditChords.class);
-        startActivity(it);
+        it.putExtra("song", this.song);
+        startActivityForResult(it, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 2){
+            this.song = (Song) data.getSerializableExtra("song");
+            this.populateFields(song);
+        }
     }
 
     public void share(MenuItem item) {
@@ -106,5 +87,29 @@ public class SongDetailActivity extends AppCompatActivity {
         Snackbar mySnackbar = Snackbar.make(findViewById(R.id.txtDescription),
                 "Alterações salvas com sucesso!", Snackbar.LENGTH_SHORT);
         mySnackbar.show();
+    }
+
+    public void populateFields(Song song){
+        txtTitle = (EditText) findViewById(R.id.txtTitle);
+        txtTitle.setText(song.getTitle());
+
+        txtDescription = (EditText) findViewById(R.id.txtDescription);
+        txtDescription.setText(song.getDescription());
+
+        if(this.song.getChords().length() > 0){
+            txtChords = (TextView) findViewById(R.id.txtChords);
+            txtChords.setText(this.song.getChords());
+        }
+
+        msgAudios = (TextView) findViewById(R.id.msgAudios);
+
+        if(this.song.getRecords().size() > 0){
+            ListView recordListView = (ListView) findViewById(R.id.recordListView);
+            recordListView.setVisibility(ListView.VISIBLE);
+            RecordListAdapter adapter = new RecordListAdapter(this.song.getRecords(), this);
+            recordListView.setAdapter(adapter);
+        } else {
+            msgAudios.setVisibility(TextView.VISIBLE);
+        }
     }
 }

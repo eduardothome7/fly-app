@@ -8,18 +8,14 @@
 
     <LinearLayout
         android:layout_width="372dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_height="487dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="8dp">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Título" />
 
         <EditText
             android:id="@+id/txtTitle"
@@ -29,17 +25,10 @@
             android:inputType="textPersonName"
             android:text="Título da Composição" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Letra" />
-
         <EditText
             android:id="@+id/txtDescription"
             android:layout_width="match_parent"
-            android:layout_height="131dp"
+            android:layout_height="179dp"
             android:ems="10"
             android:inputType="textMultiLine" />
 
@@ -48,37 +37,31 @@
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:layout_marginTop="12dp"
+            android:onClick="editChords"
             android:paddingLeft="68dp"
             android:text="Clique para definir acordes"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Áudios" />
-
         <ListView
             android:id="@+id/recordListView"
+            android:visibility="invisible"
             android:layout_width="match_parent"
-            android:layout_height="105dp" />
+            android:layout_height="124dp" />
 
         <TextView
             android:id="@+id/msgAudios"
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:gravity="center"
             android:text="Você não possui nenhuma faixa de aúdio"
             android:visibility="invisible" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="bottom|end"
-            android:backgroundTint="@android:color/white"
-            android:tint="@android:color/black"
-            app:backgroundTint="@android:color/white"
-            app:srcCompat="@android:drawable/ic_btn_speak_now" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="355dp"
+            android:layout_height="45dp"
+            android:background="@color/colorFabIcon"
+            android:text="Gravar áudio" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

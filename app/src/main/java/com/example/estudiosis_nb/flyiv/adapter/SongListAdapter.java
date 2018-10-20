@@ -63,7 +63,7 @@ public class SongListAdapter extends BaseAdapter {
         txtTitle.setText(song.getTitle());
 
         TextView txtDescription = (TextView) view.findViewById(R.id.txtDescription);
-        txtDescription.setText(song.getTitle());
+        txtDescription.setText(song.getDescription());
 
         TextView txtChords= (TextView) view.findViewById(R.id.txtChords);
         txtChords.setText(song.getChords());

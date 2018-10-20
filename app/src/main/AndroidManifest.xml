@@ -31,29 +31,11 @@
         <activity
             android:name=".SongDetailActivity"
             android:label="Editar Composição"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity
-            android:name=".EditDescription"
-            android:label="Editar Letra"
-            android:parentActivityName=".SongDetailActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EditChords"
             android:label="Acordes utilizados"
             android:parentActivityName=".SongDetailActivity" />
-        <activity
-            android:name=".SelectChord"
-            android:label="@string/title_activity_select_chord"
-            android:parentActivityName=".EditChords"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SliderChords" />
-        <activity
-            android:name=".FullDescription"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_full_description"
-            android:parentActivityName=".SongDetailActivity"
-            android:theme="@style/FullscreenTheme" />
-        <activity android:name=".RecordsActivity" />
         <activity
             android:name=".ShareActivity"
             android:parentActivityName=".SongDetailActivity" />
