@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.example.estudiosis_nb.flyiv.adapter.ChordGridAdapter;
 import com.example.estudiosis_nb.flyiv.adapter.RecordListAdapter;
 import com.example.estudiosis_nb.flyiv.model.Song;
 import com.example.estudiosis_nb.flyiv.model.SongChord;
+import com.example.estudiosis_nb.flyiv.popup.SelectChordDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,14 +45,30 @@ public class EditChords extends AppCompatActivity {
         ChordGridAdapter adapter = new ChordGridAdapter(this.chords, this);
         chordGridView.setAdapter(adapter);
 
+        chordGridView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                        SongChord songChord = chords.get(position);
+                        openDialog(songChord);
+                    }
+                }
+        );
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent it  = new Intent(EditChords.this, SliderChords.class);
-                //startActivity(it);
+
+                //openChordModal(songChord);
             }
         });
+    }
+
+    private void openDialog(SongChord songChord) {
+        SelectChordDialog selectChordDialog = new SelectChordDialog();
+        selectChordDialog.show(getSupportFragmentManager(), "select dialog");
+
     }
 
     @Override
