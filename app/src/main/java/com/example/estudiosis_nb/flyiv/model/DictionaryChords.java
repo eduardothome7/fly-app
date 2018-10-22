@@ -11,9 +11,6 @@ public class DictionaryChords {
         Chord e = new Chord("E", 450);
         this.chords.add(e);
 
-        Chord e_sus = new Chord("E#", 450);
-        this.chords.add(e_sus);
-
         Chord f = new Chord("F", 450);
         this.chords.add(f);
 

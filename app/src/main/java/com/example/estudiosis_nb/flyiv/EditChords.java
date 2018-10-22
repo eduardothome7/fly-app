@@ -50,7 +50,7 @@ public class EditChords extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                         SongChord songChord = chords.get(position);
-                        openDialog(songChord);
+                        openDialog(songChord, "edit");
                     }
                 }
         );
@@ -59,16 +59,21 @@ public class EditChords extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //openChordModal(songChord);
+                SongChord songChord = new SongChord(0,0,"");
+                openDialog(songChord,"new");
             }
         });
     }
 
-    private void openDialog(SongChord songChord) {
+    private void openDialog(SongChord songChord, String action) {
         SelectChordDialog selectChordDialog = new SelectChordDialog();
-        selectChordDialog.show(getSupportFragmentManager(), "select dialog");
 
+        Bundle args = new Bundle();
+        args.putString("position", String.valueOf(songChord.getI()));
+        args.putString("action", action);
+        selectChordDialog.setArguments(args);
+
+        selectChordDialog.show(getSupportFragmentManager(), "select dialog");
     }
 
     @Override

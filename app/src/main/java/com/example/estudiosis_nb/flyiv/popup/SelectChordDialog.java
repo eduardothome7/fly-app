@@ -12,16 +12,22 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.estudiosis_nb.flyiv.R;
+import com.example.estudiosis_nb.flyiv.model.DictionaryChords;
+import com.example.estudiosis_nb.flyiv.model.Song;
 import com.example.estudiosis_nb.flyiv.model.SongChord;
 
 import org.w3c.dom.Text;
 
 public class SelectChordDialog extends AppCompatDialogFragment {
     TextView txtSelectChordName;
+    private SongChord songChord;
+    private DictionaryChords dicionaryChords;
+    private int position;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        dicionaryChords = new DictionaryChords();
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.modal_chord,null);
@@ -40,6 +46,8 @@ public class SelectChordDialog extends AppCompatDialogFragment {
                     }
                 });
         txtSelectChordName = (TextView) view.findViewById(R.id.txtSelectChordName);
+
+        txtSelectChordName.setText(this.dicionaryChords.getChord(this.position).getName());
         return builder.create();
     }
 
@@ -56,4 +64,10 @@ public class SelectChordDialog extends AppCompatDialogFragment {
 
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        this.position = Integer.parseInt(args.getString("position"));
+    }
 }
