@@ -32,7 +32,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/btnPrev"
             android:layout_width="62dp"
             android:layout_height="70dp"
             android:layout_weight="1"
@@ -48,7 +48,7 @@
             android:textSize="30sp" />
 
         <ImageButton
-            android:id="@+id/imageButton5"
+            android:id="@+id/btnNext"
             android:layout_width="70dp"
             android:layout_height="69dp"
             android:layout_weight="1"

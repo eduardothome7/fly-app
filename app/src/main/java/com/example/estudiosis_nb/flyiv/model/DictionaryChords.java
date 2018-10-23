@@ -52,4 +52,21 @@ public class DictionaryChords {
         return this.chords.get(position);
     }
 
+    public Chord next(int position){
+        int next = position++;
+        if(next > this.chords.size()){
+            return this.chords.get(0);
+        } else {
+            return this.chords.get(next);
+        }
+    }
+
+    public Chord prev(int position){
+        int prev = position--;
+        if(position == 0){
+            return this.chords.get(this.chords.size());
+        } else {
+            return this.chords.get(prev);
+        }
+    }
 }

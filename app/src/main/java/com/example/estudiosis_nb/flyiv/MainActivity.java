@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.estudiosis_nb.flyiv.adapter.SongListAdapter;
+import com.example.estudiosis_nb.flyiv.dao.SongDAO;
 import com.example.estudiosis_nb.flyiv.model.Record;
 import com.example.estudiosis_nb.flyiv.model.Song;
 
@@ -31,12 +32,12 @@ public class MainActivity extends AppCompatActivity
     List<Song> songs = new ArrayList<>();
     SongListAdapter adapter;
     ActionBar actionBar;
+    SongDAO songDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         adapter = new SongListAdapter(songs, this);
         final ListView mainListView = (ListView) findViewById(R.id.mainListView);
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent it  = new Intent(MainActivity.this, SongDetailActivity.class);
+               Intent it  = new Intent(MainActivity.this, SongAddActivity.class);
                startActivity(it);
             }
         });
@@ -98,10 +99,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        //dao = new ProductDAO(this);
+        songDAO = new SongDAO(this);
+        songs = songDAO.fetchAll();
 
-        List<Record> records = new ArrayList<Record>();
-        Record rec1 = new Record("rec001.mp3",210,"/local/files/");
+        // List<Record> records = new ArrayList<Record>();
+
+        /* Record rec1 = new Record("rec001.mp3",210,"/local/files/");
         Record rec2 = new Record("rec002.mp3",210,"/local/files/");
         records.add(rec1);
         records.add(rec2);
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity
         songs.add(song2);
 
         Song song3 = new Song("Sem título 03","Aqui vai a letra da música", "E E7 A Am");
-        songs.add(song3);
+        songs.add(song3); */
 
         adapter.setListSongs(songs);
         adapter.notifyDataSetChanged();
