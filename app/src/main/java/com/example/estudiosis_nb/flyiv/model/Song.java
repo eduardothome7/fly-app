@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Song implements Serializable {
-    private long id;
+    private int id;
     private String title;
     private String chords = "";
     private String description;
-    private long user_id;
+    private int user_id;
     private List<SongChord> listChords = new ArrayList<>();
     private List<Record> records = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class Song implements Serializable {
         this.description = description;
     }
 
-    public Song(String title, String description, long user_id) {
+    public Song(String title, String description, int user_id) {
         this.title = title;
         this.description = description;
         this.user_id = user_id;
@@ -63,7 +63,7 @@ public class Song implements Serializable {
 
     }
 
-    public Song(long id, String title, String description, long user_id) {
+    public Song(int id, String title, String description, int user_id) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -80,7 +80,7 @@ public class Song implements Serializable {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -100,11 +100,11 @@ public class Song implements Serializable {
         this.description = description;
     }
 
-    public long getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(long user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 }

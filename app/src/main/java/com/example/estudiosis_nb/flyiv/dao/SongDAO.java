@@ -61,7 +61,7 @@ public class SongDAO {
         return null;
     }
 
-    public boolean update(int id, Song song) {
+    public boolean update(Song song) {
         SQLiteDatabase db = databaseTable.getWritableDatabase();
 
         ContentValues params = new ContentValues();

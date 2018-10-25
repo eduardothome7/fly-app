@@ -27,12 +27,13 @@ import java.util.List;
 public class SongDetailActivity extends AppCompatActivity {
 
     Song song;
-    private static long USER_ID = 1;
-    SongDAO dao;
+    private static int USER_ID = 1;
     EditText txtTitle;
     EditText txtDescription;
     TextView msgAudios;
     TextView txtChords;
+    SongDAO dao = new SongDAO(this);
+    Snackbar mySnackbar;
     List<Record> records = new ArrayList<>();
 
     @Override
@@ -84,8 +85,17 @@ public class SongDetailActivity extends AppCompatActivity {
     }
 
     public void save(MenuItem item) {
-        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.txtDescription),
-                "Alterações salvas com sucesso!", Snackbar.LENGTH_SHORT);
+        this.song.setTitle(this.txtTitle.getText().toString());
+        this.song.setDescription(this.txtDescription.getText().toString());
+
+        if(this.dao.update(this.song)){
+            mySnackbar = Snackbar.make(findViewById(R.id.txtDescription),
+                    "Alterações salvas com sucesso!", Snackbar.LENGTH_SHORT);
+        } else {
+            mySnackbar = Snackbar.make(findViewById(R.id.txtDescription),
+                    "Erro ao salvar a composição!", Snackbar.LENGTH_SHORT);
+        }
+
         mySnackbar.show();
     }
 

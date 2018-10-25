@@ -27,8 +27,8 @@ import java.util.List;
 
 public class SongAddActivity extends AppCompatActivity {
 
-    Song song =  new Song("Nova composição","Clique aqui para editar a letra da composição,", USER_ID);;
-    private static long USER_ID = 1;
+    private static int USER_ID = 1;
+    Song song =  new Song("Nova composição","Clique aqui para editar a letra da composição,", USER_ID);
     SongDAO dao = new SongDAO(this);
     EditText txtTitle;
     EditText txtDescription;
@@ -71,7 +71,7 @@ public class SongAddActivity extends AppCompatActivity {
 
     public void save(MenuItem item) {
         this.song.setTitle(this.txtTitle.getText().toString());
-        this.song.setDescription(this.txtTitle.getText().toString());
+        this.song.setDescription(this.txtDescription.getText().toString());
 
         if(this.dao.create(this.song)){
             mySnackbar = Snackbar.make(findViewById(R.id.txtDescription),
