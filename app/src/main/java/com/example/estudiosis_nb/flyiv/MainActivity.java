@@ -1,11 +1,16 @@
 package com.example.estudiosis_nb.flyiv;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.estudiosis_nb.flyiv.adapter.SongListAdapter;
 import com.example.estudiosis_nb.flyiv.dao.SongDAO;
@@ -34,10 +40,18 @@ public class MainActivity extends AppCompatActivity
     ActionBar actionBar;
     SongDAO songDAO;
 
+    final int REQUEST_PERMISSION_CODE = 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(checkPermissionFromDevice()) {
+
+        } else {
+            requestPermission();
+        }
 
         adapter = new SongListAdapter(songs, this);
         final ListView mainListView = (ListView) findViewById(R.id.mainListView);
@@ -79,6 +93,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO
+        }, REQUEST_PERMISSION_CODE);
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -94,6 +114,22 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
         return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSION_CODE: {
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED){
+                    Toast.makeText(this,"Permissão para gravação.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this,"Permissão negada.", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
     }
 
     @Override
@@ -137,6 +173,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean checkPermissionFromDevice(){
+        int write_external_storage_result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int record_audio_result = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
+        return write_external_storage_result == PackageManager.PERMISSION_GRANTED && record_audio_result == PackageManager.PERMISSION_GRANTED;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
