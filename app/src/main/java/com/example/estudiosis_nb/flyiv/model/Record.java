@@ -3,22 +3,42 @@ package com.example.estudiosis_nb.flyiv.model;
 import java.io.Serializable;
 
 public class Record implements Serializable {
-    private String title;
+    private String name;
     private int duration;
     private String path;
+    private String apiPath;
+    private int songId;
 
-    public Record(String title, int duration, String path) {
-        this.title = title;
+    public Record(String name, int duration, String path, String apiPath, int songId) {
+        this.name = name;
         this.duration = duration;
         this.path = path;
+        this.apiPath = apiPath;
+        this.songId = songId;
     }
 
-    public String getTitle() {
-        return title;
+    public int getSongId() {
+        return songId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setSongId(int songId) {
+        this.songId = songId;
+    }
+
+    public String getApiPath() {
+        return apiPath;
+    }
+
+    public void setapiPath(String apiPath) {
+        this.apiPath = apiPath;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getDuration() {

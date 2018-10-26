@@ -6,6 +6,7 @@ import android.database.Cursor;
 import com.example.estudiosis_nb.flyiv.bd.DatabaseTable;
 import com.example.estudiosis_nb.flyiv.model.Record;
 import com.example.estudiosis_nb.flyiv.model.Song;
+import com.example.estudiosis_nb.flyiv.popup.AudioRecorderDialog;
 
 import android.database.sqlite.SQLiteAbortException;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,20 +23,28 @@ public class RecordDAO {
         databaseTable = new DatabaseTable(context);
     }
 
+    public RecordDAO(AudioRecorderDialog audioRecorderDialog) {
+
+    }
+
     public List<Record> fetchAll(int song_id) {
         SQLiteDatabase db = databaseTable.getReadableDatabase();
         Cursor cursor = db.query("records",
-                new String[]{"id","song_id", "name","path","api_path", "duration"},
+                new String[]{"id", "name","path","api_path", "song_id", "duration"},
                 null,null,null,null,"id desc");
 
         List<Record> listRecords = new ArrayList<>();
 
         while(cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex("id"));
-            String title = cursor.getString(cursor.getColumnIndex("title"));
-            String description = cursor.getString(cursor.getColumnIndex("description"));
-            //Song record = new Record();
-            //listRecords.add(record);
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            String path = cursor.getString(cursor.getColumnIndex("path"));
+            String api_path = cursor.getString(cursor.getColumnIndex("api_path"));
+            int songId = cursor.getInt(cursor.getColumnIndex("song_id"));
+            int duration = cursor.getInt(cursor.getColumnIndex("duration"));
+
+            Record record = new Record(name, duration, path, api_path, songId);
+            listRecords.add(record);
         }
 
         return listRecords;
@@ -45,39 +54,24 @@ public class RecordDAO {
         SQLiteDatabase db = databaseTable.getWritableDatabase();
 
         ContentValues params = new ContentValues();
-       /* params.put("title", song.getTitle());
-        params.put("description", song.getDescription());
+        params.put("name", record.getName());
+        params.put("path", record.getPath());
+        params.put("api_path", record.getApiPath());
+        params.put("song_id", record.getSongId());
+        params.put("duration", record.getDuration());
 
         try {
-            db.insert("songs", null, params);
-            db.close();
-            return true;
-        } catch(SQLiteAbortException error) {
-            db.close();
-            return false;
-        } */
-       return true;
-    }
-
-    public Song get(int id) {
-        return null;
-    }
-
-    public boolean update(Song song) {
-        SQLiteDatabase db = databaseTable.getWritableDatabase();
-
-        ContentValues params = new ContentValues();
-        params.put("title", song.getTitle());
-        params.put("description", song.getDescription());
-
-        try {
-            db.update("songs", params, "id =?", new String[]{String.valueOf(song.getId())});
+            db.insert("records", null, params);
             db.close();
             return true;
         } catch(SQLiteAbortException error) {
             db.close();
             return false;
         }
+    }
+
+    public Record get(int id) {
+        return null;
     }
 
     public void destroy(int id) {
