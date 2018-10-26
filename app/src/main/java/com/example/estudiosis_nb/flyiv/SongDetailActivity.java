@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import com.example.estudiosis_nb.flyiv.adapter.SongListAdapter;
 import com.example.estudiosis_nb.flyiv.dao.SongDAO;
 import com.example.estudiosis_nb.flyiv.model.Record;
 import com.example.estudiosis_nb.flyiv.model.Song;
+import com.example.estudiosis_nb.flyiv.popup.AudioRecorderDialog;
+import com.example.estudiosis_nb.flyiv.popup.SelectChordDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +38,21 @@ public class SongDetailActivity extends AppCompatActivity {
     SongDAO dao = new SongDAO(this);
     Snackbar mySnackbar;
     List<Record> records = new ArrayList<>();
+    Button btnRecorder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_detail);
+        btnRecorder = (Button) findViewById(R.id.btnRecord);
 
+        btnRecorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+                public void onClick(View v) {
+                    openRecorder();
+                }
+            }
+        );
         // ActionBar bar = getSupportActionBar();
         // bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
 
@@ -82,6 +94,14 @@ public class SongDetailActivity extends AppCompatActivity {
 
     public void play(View view){
 
+    }
+
+    public void openRecorder() {
+        AudioRecorderDialog audioRecorderDialog = new AudioRecorderDialog();
+        Bundle args = new Bundle();
+        args.putString("songId", String.valueOf(this.song.getId()));
+        audioRecorderDialog.setArguments(args);
+        audioRecorderDialog.show(getSupportFragmentManager(), "recorder dialog");
     }
 
     public void save(MenuItem item) {

@@ -29,7 +29,7 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.modal_chord,null);
+        View view = inflater.inflate(R.layout.audio_recorder,null);
 
         //btnNext = (ImageButton) view.findViewById(R.id.btnNext);
 

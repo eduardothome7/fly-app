@@ -57,7 +57,7 @@
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnRecord"
             android:layout_width="352dp"
             android:layout_height="45dp"
             android:background="@color/colorFabText"
