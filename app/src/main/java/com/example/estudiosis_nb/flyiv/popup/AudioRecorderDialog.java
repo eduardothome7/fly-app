@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.estudiosis_nb.flyiv.R;
+import com.example.estudiosis_nb.flyiv.SongDetailActivity;
+import com.example.estudiosis_nb.flyiv.dao.RecordDAO;
 import com.example.estudiosis_nb.flyiv.model.Chord;
 import com.example.estudiosis_nb.flyiv.model.DictionaryChords;
 import com.example.estudiosis_nb.flyiv.model.Song;
@@ -32,6 +34,7 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
     private ImageButton btnPlayPause;
     private MediaRecorder mediaRecorder;
     private boolean playing;
+    private RecordDAO recordDAO;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -39,9 +42,11 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.audio_recorder,null);
-
+        playing = false;
         btnPlayPause = (ImageButton) view.findViewById(R.id.btnPlayPause);
         //btnNext = (ImageButton) view.findViewById(R.id.btnNext);
+
+        //
 
         builder.setView(view)
                 .setTitle("Gravar áudio")
@@ -54,26 +59,34 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        //recordDAO
                     }
                 });
 
         btnPlayPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnPlayPause.setEnabled(false);
+
+
+                if(playing){
+                    //pausa
+
+                } else {
+
+                    String path = Environment.getExternalStorageDirectory()
+                            .getAbsolutePath()+
+                            "/"+UUID.randomUUID().toString()+"_audio_record.3gp";
+                    setupMediaRecord(path);
+                    try {
+                        mediaRecorder.prepare();
+                        mediaRecorder.start();
+                    } catch (IOException e) {
+
+                    }
+                    playing = true;
+                }
                 //btnStop.setEnabled(true);
 
-                String path = Environment.getExternalStorageDirectory()
-                        .getAbsolutePath()+
-                        "/"+UUID.randomUUID().toString()+"_audio_record.3gp";
-                setupMediaRecord(path);
-                try {
-                    mediaRecorder.prepare();
-                    mediaRecorder.start();
-                } catch (IOException e) {
-
-                }
 
                 //btnPlayPause.setImageIcon();
             }
