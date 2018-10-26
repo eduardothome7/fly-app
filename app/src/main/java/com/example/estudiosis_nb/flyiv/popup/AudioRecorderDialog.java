@@ -22,6 +22,7 @@ import com.example.estudiosis_nb.flyiv.SongDetailActivity;
 import com.example.estudiosis_nb.flyiv.dao.RecordDAO;
 import com.example.estudiosis_nb.flyiv.model.Chord;
 import com.example.estudiosis_nb.flyiv.model.DictionaryChords;
+import com.example.estudiosis_nb.flyiv.model.Record;
 import com.example.estudiosis_nb.flyiv.model.Song;
 import com.example.estudiosis_nb.flyiv.model.SongChord;
 
@@ -37,9 +38,13 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
     private MediaPlayer mediaPlayer;
     private boolean playing;
     private boolean done;
+    private boolean stop;
+    private Record record;
     private RecordDAO recordDAO;
-    TextView msg;
-    String path;
+    private TextView msg;
+    private String path;
+    private String file;
+    private int songId;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -47,13 +52,12 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.audio_recorder,null);
-        playing = false;
-        done = false;
+
         btnPlayPause = (ImageButton) view.findViewById(R.id.btnPlayPause);
         msg = (TextView) view.findViewById(R.id.txtMsg);
 
         //btnNext = (ImageButton) view.findViewById(R.id.btnNext);        //
-        recordDAO = new RecordDAO(this);
+        recordDAO = new RecordDAO(this.getContext());
 
         builder.setView(view)
                 .setTitle("Gravar áudio")
@@ -67,6 +71,20 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        if(done) {
+                            record = new Record();
+                            record.setName(file);
+                            record.setPath(path);
+                            record.setSongId(songId);
+                            record.setapiPath("");
+                            record.setDuration(102);
+
+                            if (recordDAO.create(record)) {
+                                Toast.makeText(getContext(), "Ok", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(), "Deu erro", Toast.LENGTH_LONG).show();
+                            }
+                        }
                     }
                 });
 
@@ -76,14 +94,13 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
 
                 if(!done) {
                     if(!playing){
-
                         msg.setText("Gravando...");
                         btnPlayPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_icon_stop));
-
                         path = Environment.getExternalStorageDirectory()
-                                .getAbsolutePath()+
-                                "/"+UUID.randomUUID().toString()+"_audio_record.3gp";
-                        setupMediaRecord(path);
+                                .getAbsolutePath();
+                        file = UUID.randomUUID().toString()+"_audio_record.3gp";
+                        String path_file = path+"/"+file;
+                        setupMediaRecord(path_file);
                         try {
                             mediaRecorder.prepare();
                             mediaRecorder.start();
@@ -100,16 +117,24 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
                         done = true;
                     }
                 } else {
-                    //playAudio
-                    msg.setText("...");
-                    mediaPlayer = new MediaPlayer();
-                    try {
-                        mediaPlayer.setDataSource(path);
-                        mediaPlayer.prepare();
-                    } catch(IOException e) {
-                        e.printStackTrace();
+                    if(!stop) {
+                        //playAudio
+                        msg.setText("...");
+                        mediaPlayer = new MediaPlayer();
+                        try {
+                            String path_file = path+"/"+file;
+                            mediaPlayer.setDataSource(path_file);
+                            mediaPlayer.prepare();
+                        } catch(IOException e) {
+                            e.printStackTrace();
+                        }
+                        mediaPlayer.start();
+                        stop = true;
+                    } else {
+                        msg.setText("Clique no botão abaixo para continuar execução do áudio");
+                        mediaPlayer.pause();
+                        //mediaPlayer.release();
                     }
-                    mediaPlayer.start();
                 }
             }
         });
@@ -118,12 +143,12 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-    private void setupMediaRecord(String path) {
+    private void setupMediaRecord(String path_file) {
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        mediaRecorder.setOutputFile(path);
+        mediaRecorder.setOutputFile(path_file);
     }
 
     @Override
@@ -138,7 +163,10 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-
+        this.songId = Integer.parseInt(args.getString("songId"));
+        this.done = false;
+        this.playing = false;
+        this.stop = false;
     }
 }
 

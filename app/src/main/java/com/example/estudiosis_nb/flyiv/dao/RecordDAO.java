@@ -23,10 +23,6 @@ public class RecordDAO {
         databaseTable = new DatabaseTable(context);
     }
 
-    public RecordDAO(AudioRecorderDialog audioRecorderDialog) {
-
-    }
-
     public List<Record> fetchAll(int song_id) {
         SQLiteDatabase db = databaseTable.getReadableDatabase();
         Cursor cursor = db.query("records",

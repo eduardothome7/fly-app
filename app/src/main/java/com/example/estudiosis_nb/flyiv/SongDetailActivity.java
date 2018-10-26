@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.estudiosis_nb.flyiv.adapter.RecordListAdapter;
 import com.example.estudiosis_nb.flyiv.adapter.SongListAdapter;
+import com.example.estudiosis_nb.flyiv.dao.RecordDAO;
 import com.example.estudiosis_nb.flyiv.dao.SongDAO;
 import com.example.estudiosis_nb.flyiv.model.Record;
 import com.example.estudiosis_nb.flyiv.model.Song;
@@ -71,6 +72,13 @@ public class SongDetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
       getMenuInflater().inflate(R.menu.menu_song_detail, menu);
       return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        RecordDAO recordDAO = new RecordDAO(this);
+        records = recordDAO.fetchAll(song.getId());
     }
 
     public void editChords(View view) {

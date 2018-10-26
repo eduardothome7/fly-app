@@ -29,6 +29,9 @@ public class Record implements Serializable {
         return apiPath;
     }
 
+    public Record() {
+    }
+
     public void setapiPath(String apiPath) {
         this.apiPath = apiPath;
     }
