@@ -139,7 +139,6 @@ public class MainActivity extends AppCompatActivity
         songs = songDAO.fetchAll();
 
         // List<Record> records = new ArrayList<Record>();
-
         /* Record rec1 = new Record("rec001.mp3",210,"/local/files/");
         Record rec2 = new Record("rec002.mp3",210,"/local/files/");
         records.add(rec1);

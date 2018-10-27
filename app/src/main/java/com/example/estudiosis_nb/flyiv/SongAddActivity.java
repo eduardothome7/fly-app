@@ -84,10 +84,15 @@ public class SongAddActivity extends AppCompatActivity {
         mySnackbar.show();
     }
 
+    public void editChords(View view) {
+        Intent it = new Intent(SongAddActivity.this, EditChords.class);
+        it.putExtra("song", this.song);
+        startActivityForResult(it, 1);
+    }
+
     public void populateFields(Song song){
         txtTitle = (EditText) findViewById(R.id.txtTitle);
         txtTitle.setText(song.getTitle());
-
         txtDescription = (EditText) findViewById(R.id.txtDescription);
         txtDescription.setText(song.getDescription());
 

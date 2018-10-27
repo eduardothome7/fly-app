@@ -27,12 +27,13 @@ public class RecordDAO {
         SQLiteDatabase db = databaseTable.getReadableDatabase();
         Cursor cursor = db.query("records",
                 new String[]{"id", "name","path","api_path", "song_id", "duration"},
-                null,null,null,null,"id desc");
+                "song_id="+song_id,null,null,null,"id desc");
 
         List<Record> listRecords = new ArrayList<>();
 
         while(cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex("id"));
+
             String name = cursor.getString(cursor.getColumnIndex("name"));
             String path = cursor.getString(cursor.getColumnIndex("path"));
             String api_path = cursor.getString(cursor.getColumnIndex("api_path"));
@@ -42,7 +43,6 @@ public class RecordDAO {
             Record record = new Record(name, duration, path, api_path, songId);
             listRecords.add(record);
         }
-
         return listRecords;
     }
 

@@ -80,7 +80,7 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
                             record.setDuration(102);
 
                             if (recordDAO.create(record)) {
-                                Toast.makeText(getContext(), "Ok", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "Gravação salva com sucesso!", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(getContext(), "Deu erro", Toast.LENGTH_LONG).show();
                             }
@@ -94,20 +94,7 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
 
                 if(!done) {
                     if(!playing){
-                        msg.setText("Gravando...");
-                        btnPlayPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_icon_stop));
-                        path = Environment.getExternalStorageDirectory()
-                                .getAbsolutePath();
-                        file = UUID.randomUUID().toString()+"_audio_record.3gp";
-                        String path_file = path+"/"+file;
-                        setupMediaRecord(path_file);
-                        try {
-                            mediaRecorder.prepare();
-                            mediaRecorder.start();
-                        } catch (IOException e) {
-
-                        }
-                        playing = true;
+                        startRecorder();
                     } else {
                         //stop
                         mediaRecorder.stop();
@@ -156,9 +143,6 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
         super.onAttach(context);
     }
 
-    public void startStop(){
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,9 +152,24 @@ public class AudioRecorderDialog extends AppCompatDialogFragment {
         this.playing = false;
         this.stop = false;
     }
+
+    public void startRecorder(){
+        msg.setText("Gravando...");
+        btnPlayPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_icon_stop));
+        path = Environment.getExternalStorageDirectory()
+                .getAbsolutePath();
+        file = UUID.randomUUID().toString()+"_audio_record.3gp";
+        String path_file = path+"/"+file;
+        setupMediaRecord(path_file);
+        try {
+            mediaRecorder.prepare();
+            mediaRecorder.start();
+        } catch (IOException e) {
+
+        }
+        playing = true;
+    }
 }
-
-
 /*
 * <div>Icons made by <a href="https://www.flaticon.com/authors/hirschwolf" title="hirschwolf">hirschwolf</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.estudiosis_nb.flyiv.adapter.RecordListAdapter;
 import com.example.estudiosis_nb.flyiv.adapter.SongListAdapter;
@@ -40,13 +41,15 @@ public class SongDetailActivity extends AppCompatActivity {
     Snackbar mySnackbar;
     List<Record> records = new ArrayList<>();
     Button btnRecorder;
+    RecordDAO recordDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_detail);
-        btnRecorder = (Button) findViewById(R.id.btnRecord);
 
+        recordDAO = new RecordDAO(this);
+        btnRecorder = (Button) findViewById(R.id.btnRecord);
         btnRecorder.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View v) {
@@ -56,15 +59,13 @@ public class SongDetailActivity extends AppCompatActivity {
         );
         // ActionBar bar = getSupportActionBar();
         // bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
-
         Intent it = getIntent();
-
         if(it.getExtras() != null ){
             this.song = (Song) it.getSerializableExtra("song");
         } else {
             this.song = new Song("Nova composição","Clique aqui para editar a letra da composição,", USER_ID);
         }
-
+        this.fetchRecords();
         this.populateFields(this.song);
     }
 
@@ -72,13 +73,6 @@ public class SongDetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
       getMenuInflater().inflate(R.menu.menu_song_detail, menu);
       return true;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        RecordDAO recordDAO = new RecordDAO(this);
-        records = recordDAO.fetchAll(song.getId());
     }
 
     public void editChords(View view) {
@@ -123,7 +117,6 @@ public class SongDetailActivity extends AppCompatActivity {
             mySnackbar = Snackbar.make(findViewById(R.id.txtDescription),
                     "Erro ao salvar a composição!", Snackbar.LENGTH_SHORT);
         }
-
         mySnackbar.show();
     }
 
@@ -149,5 +142,10 @@ public class SongDetailActivity extends AppCompatActivity {
         } else {
             msgAudios.setVisibility(TextView.VISIBLE);
         }
+    }
+
+    public void fetchRecords(){
+        this.records = recordDAO.fetchAll(this.song.getId());
+        this.song.setRecords(records);
     }
 }
