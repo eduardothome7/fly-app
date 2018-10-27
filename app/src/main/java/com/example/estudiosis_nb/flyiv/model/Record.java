@@ -1,5 +1,8 @@
 package com.example.estudiosis_nb.flyiv.model;
 
+import android.media.MediaPlayer;
+
+import java.io.IOException;
 import java.io.Serializable;
 
 public class Record implements Serializable {
@@ -64,5 +67,19 @@ public class Record implements Serializable {
         int minutes = (this.duration % 3600) / 60;
         int seconds = this.duration % 60;
         return String.format("%02d:%02d", minutes, seconds);
+    }
+
+    public boolean play(){
+        MediaPlayer player = new MediaPlayer();
+        try {
+            String path_file = this.getPath()+"/"+this.getName();
+            player.setDataSource(path_file);
+            player.prepare();
+            player.start();
+            return true;
+        } catch(IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

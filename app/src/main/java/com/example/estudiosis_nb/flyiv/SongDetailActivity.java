@@ -3,6 +3,7 @@ package com.example.estudiosis_nb.flyiv;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import com.example.estudiosis_nb.flyiv.model.Song;
 import com.example.estudiosis_nb.flyiv.popup.AudioRecorderDialog;
 import com.example.estudiosis_nb.flyiv.popup.SelectChordDialog;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class SongDetailActivity extends AppCompatActivity {
     Snackbar mySnackbar;
     List<Record> records = new ArrayList<>();
     Button btnRecorder;
+    MediaPlayer mediaPlayer;
     RecordDAO recordDAO;
 
     @Override
@@ -94,10 +97,6 @@ public class SongDetailActivity extends AppCompatActivity {
 
     }
 
-    public void play(View view){
-
-    }
-
     public void openRecorder() {
         AudioRecorderDialog audioRecorderDialog = new AudioRecorderDialog();
         Bundle args = new Bundle();
@@ -139,6 +138,19 @@ public class SongDetailActivity extends AppCompatActivity {
             recordListView.setVisibility(ListView.VISIBLE);
             RecordListAdapter adapter = new RecordListAdapter(this.song.getRecords(), this);
             recordListView.setAdapter(adapter);
+
+            recordListView.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener(){
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                            Record record = records.get(position);
+                            if(record.play()){
+                                Toast.makeText(SongDetailActivity.this, "Executando...", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+            );
+
         } else {
             msgAudios.setVisibility(TextView.VISIBLE);
         }
