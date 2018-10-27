@@ -57,7 +57,7 @@ public class SelectChordDialog extends AppCompatDialogFragment {
                 })
                 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 });
@@ -65,8 +65,14 @@ public class SelectChordDialog extends AppCompatDialogFragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Toast.makeText(getContext(), "Ok2", Toast.LENGTH_LONG).show();
                 next();
+            }
+        });
+
+        btnPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prev();
             }
         });
 
@@ -79,13 +85,23 @@ public class SelectChordDialog extends AppCompatDialogFragment {
     }
 
     public void prev(){
-        this.chord = this.dicionaryChords.prev(this.position);
+        if(this.position == 0){
+            this.position = this.dicionaryChords.getChords().size();
+        } else {
+            this.position--;
+        }
+        //Toast.makeText(this.getContext(),"pos:"+this.position, Toast.LENGTH_SHORT).show();
+        this.chord = this.dicionaryChords.prev(position);
         populate();
     }
 
     public void next(){
+        if(this.position == (this.dicionaryChords.getChords().size() - 1)){
+            this.position = 0;
+        } else {
+            this.position++;
+        }
         this.chord = this.dicionaryChords.next(position);
-        this.position++;
         populate();
     }
 

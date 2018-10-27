@@ -52,9 +52,13 @@ public class DictionaryChords {
         return this.chords.get(position);
     }
 
+    public List<Chord> getChords() {
+        return chords;
+    }
+
     public Chord next(int position){
         int next = position++;
-        if(next > this.chords.size()){
+        if(next >= this.chords.size()){
             return this.chords.get(0);
         } else {
             return this.chords.get(next);
@@ -64,7 +68,7 @@ public class DictionaryChords {
     public Chord prev(int position){
         int prev = position--;
         if(position == 0){
-            return this.chords.get(this.chords.size());
+            return this.chords.get(this.chords.size()-1);
         } else {
             return this.chords.get(prev);
         }
