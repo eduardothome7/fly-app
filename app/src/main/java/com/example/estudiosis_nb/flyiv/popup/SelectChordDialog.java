@@ -3,6 +3,7 @@ package com.example.estudiosis_nb.flyiv.popup;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -11,14 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.estudiosis_nb.flyiv.R;
 import com.example.estudiosis_nb.flyiv.model.Chord;
 import com.example.estudiosis_nb.flyiv.model.DictionaryChords;
+import com.example.estudiosis_nb.flyiv.model.Record;
 import com.example.estudiosis_nb.flyiv.model.Song;
 import com.example.estudiosis_nb.flyiv.model.SongChord;
 
 import org.w3c.dom.Text;
+
+import java.io.IOException;
 
 public class SelectChordDialog extends AppCompatDialogFragment {
     TextView txtSelectChordName;
@@ -37,24 +42,33 @@ public class SelectChordDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.modal_chord,null);
 
         btnNext = (ImageButton) view.findViewById(R.id.btnNext);
+        btnPrev = (ImageButton) view.findViewById(R.id.btnPrev);
+
+        txtSelectChordName = (TextView) view.findViewById(R.id.txtSelectChordName);
+        populate();
 
         builder.setView(view)
                 .setTitle("Selecionar acorde")
-                .setNegativeButton("cancelar", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton("Incluir", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 });
 
-        txtSelectChordName = (TextView) view.findViewById(R.id.txtSelectChordName);
-        populate();
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Toast.makeText(getContext(), "Ok2", Toast.LENGTH_LONG).show();
+                next();
+            }
+        });
 
         return builder.create();
     }
@@ -64,13 +78,14 @@ public class SelectChordDialog extends AppCompatDialogFragment {
         super.onAttach(context);
     }
 
-    public void next(){
-        this.chord = this.dicionaryChords.next(this.position);
+    public void prev(){
+        this.chord = this.dicionaryChords.prev(this.position);
         populate();
     }
 
-    public void prev(){
-        this.chord = this.dicionaryChords.prev(this.position);
+    public void next(){
+        this.chord = this.dicionaryChords.next(position);
+        this.position++;
         populate();
     }
 
@@ -84,13 +99,5 @@ public class SelectChordDialog extends AppCompatDialogFragment {
         Bundle args = getArguments();
         this.position = Integer.parseInt(args.getString("position"));
         this.chord = this.dicionaryChords.getChord(this.position);
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                next();
-            }
-        });
-
     }
 }

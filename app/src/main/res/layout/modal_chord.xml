@@ -51,7 +51,7 @@
             android:id="@+id/btnNext"
             android:layout_width="70dp"
             android:layout_height="69dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             app:srcCompat="@drawable/ic_right_chevron" />
 
     </LinearLayout>
