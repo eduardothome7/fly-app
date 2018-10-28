@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -86,12 +87,13 @@ public class SelectChordDialog extends AppCompatDialogFragment {
 
     public void prev(){
         if(this.position == 0){
-            this.position = this.dicionaryChords.getChords().size();
+            this.position = this.dicionaryChords.getChords().size() - 1;
         } else {
             this.position--;
         }
         //Toast.makeText(this.getContext(),"pos:"+this.position, Toast.LENGTH_SHORT).show();
-        this.chord = this.dicionaryChords.prev(position);
+        this.chord = this.dicionaryChords.getChord(this.position);
+        Log.d("DEBUG", "position: "+this.position);
         populate();
     }
 
@@ -101,7 +103,8 @@ public class SelectChordDialog extends AppCompatDialogFragment {
         } else {
             this.position++;
         }
-        this.chord = this.dicionaryChords.next(position);
+        this.chord = this.dicionaryChords.getChord(this.position);
+        Log.d("DEBUG", "position: "+this.position);
         populate();
     }
 

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseTable extends SQLiteOpenHelper {
-    private static String DB_NAME = "fly2.bd";
+    private static String DB_NAME = "fly3.bd";
 
     private static String CREATE_SONG = "CREATE TABLE songs" +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -22,6 +22,14 @@ public class DatabaseTable extends SQLiteOpenHelper {
             "duration INTEGER" +
             ")";
 
+    private static String CREATE_CHORDS = "CREATE TABLE chords" +
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "position INTEGER," +
+            "tone INTEGER," +
+            "note INTEGER," +
+            "song_id INTEGER" +
+            ")";
+
     public DatabaseTable(Context context){
         super(context, DB_NAME, null, 4);
     }
@@ -30,14 +38,16 @@ public class DatabaseTable extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_SONG);
         sqLiteDatabase.execSQL(CREATE_RECORDS);
+        sqLiteDatabase.execSQL(CREATE_CHORDS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE songs");
         db.execSQL("DROP TABLE records");
+        db.execSQL("DROP TABLE chords");
         db.execSQL(CREATE_SONG);
         db.execSQL(CREATE_RECORDS);
+        db.execSQL(CREATE_CHORDS);
     }
-
 }

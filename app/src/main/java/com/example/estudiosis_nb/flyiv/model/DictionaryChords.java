@@ -68,7 +68,7 @@ public class DictionaryChords {
     public Chord prev(int position){
         int prev = position--;
         if(position == 0){
-            return this.chords.get(this.chords.size()-1);
+            return this.chords.get(this.chords.size());
         } else {
             return this.chords.get(prev);
         }

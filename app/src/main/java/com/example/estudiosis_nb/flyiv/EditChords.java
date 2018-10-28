@@ -69,7 +69,7 @@ public class EditChords extends AppCompatActivity {
         SelectChordDialog selectChordDialog = new SelectChordDialog();
 
         Bundle args = new Bundle();
-        args.putString("position", String.valueOf(songChord.getI()));
+        args.putString("position", String.valueOf(songChord.getPosition()));
         args.putString("action", action);
         selectChordDialog.setArguments(args);
         selectChordDialog.show(getSupportFragmentManager(), "select dialog");

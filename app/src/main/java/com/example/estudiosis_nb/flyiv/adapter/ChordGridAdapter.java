@@ -63,7 +63,7 @@ public class ChordGridAdapter extends BaseAdapter {
         View view = inflater.inflate(R.layout.chord_item, null);
 
         TextView txtChordName = (TextView) view.findViewById(R.id.txtChord);
-        txtChordName.setText(dictionaryChords.getChord(songChord.getI()).getName());
+        txtChordName.setText(dictionaryChords.getChord(songChord.getPosition()).getName());
 
         TextView txtFrequency= (TextView) view.findViewById(R.id.txtFrequency);
         txtFrequency.setText("420hz");
