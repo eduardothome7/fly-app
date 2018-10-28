@@ -37,9 +37,12 @@
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:layout_marginTop="12dp"
+            android:background="@color/colorFabIcon"
             android:onClick="editChords"
             android:paddingLeft="68dp"
+            android:paddingTop="5dp"
             android:text="Clique para definir acordes"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <ListView
@@ -60,9 +63,11 @@
             android:id="@+id/btnRecord"
             android:layout_width="352dp"
             android:layout_height="45dp"
-            android:background="@color/colorFabText"
+            android:background="@color/colorFabIcon"
             android:drawableLeft="@android:drawable/ic_btn_speak_now"
-            android:text="Gravar áudio" />
+            android:drawableTint="@android:color/black"
+            android:text="Gravar áudio"
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/lightGray"
     android:layout_marginStart="8dp"
     android:layout_marginLeft="12dp"
     android:layout_marginTop="20dp"
@@ -20,16 +21,19 @@
         android:layout_width="match_parent"
         android:layout_height="71dp"
         android:layout_weight="1"
+        android:background="@color/colorFabText"
         android:gravity="center"
         android:text="E"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtFrequency"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_weight="1"
+        android:background="@color/colorFabText"
         android:gravity="center"
         android:text="420hz" />
 </LinearLayout>

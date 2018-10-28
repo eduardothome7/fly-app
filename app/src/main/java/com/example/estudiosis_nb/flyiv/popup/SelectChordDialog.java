@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.estudiosis_nb.flyiv.R;
+import com.example.estudiosis_nb.flyiv.dao.ChordDAO;
 import com.example.estudiosis_nb.flyiv.model.Chord;
 import com.example.estudiosis_nb.flyiv.model.DictionaryChords;
 import com.example.estudiosis_nb.flyiv.model.Record;
@@ -31,9 +32,11 @@ public class SelectChordDialog extends AppCompatDialogFragment {
     private SongChord songChord;
     private DictionaryChords dicionaryChords = new DictionaryChords();
     private int position;
+    private int songId;
     private Chord chord;
     private ImageButton btnNext;
     private ImageButton btnPrev;
+    private ChordDAO chordDAO;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class SelectChordDialog extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.modal_chord,null);
+        chordDAO = new ChordDAO(getContext());
 
         btnNext = (ImageButton) view.findViewById(R.id.btnNext);
         btnPrev = (ImageButton) view.findViewById(R.id.btnPrev);
@@ -59,6 +63,12 @@ public class SelectChordDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
                     @Override
                      public void onClick(DialogInterface dialog, int which) {
+
+                        if(chordDAO.create(songChord)){
+                            Toast.makeText(getContext(), "Acorde adicionado com sucesso!", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(), "Erro ao adicionar acorde.", Toast.LENGTH_LONG).show();
+                        }
 
                     }
                 });
@@ -93,6 +103,7 @@ public class SelectChordDialog extends AppCompatDialogFragment {
         }
         //Toast.makeText(this.getContext(),"pos:"+this.position, Toast.LENGTH_SHORT).show();
         this.chord = this.dicionaryChords.getChord(this.position);
+        songChord.setPosition(this.position);
         Log.d("DEBUG", "position: "+this.position);
         populate();
     }
@@ -104,7 +115,8 @@ public class SelectChordDialog extends AppCompatDialogFragment {
             this.position++;
         }
         this.chord = this.dicionaryChords.getChord(this.position);
-        Log.d("DEBUG", "position: "+this.position);
+        songChord.setPosition(this.position);
+        //Log.d("DEBUG", "position: "+this.position);
         populate();
     }
 
@@ -117,6 +129,11 @@ public class SelectChordDialog extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         this.position = Integer.parseInt(args.getString("position"));
+        this.songChord = new SongChord();
         this.chord = this.dicionaryChords.getChord(this.position);
+        songId = Integer.parseInt(args.getString("songId"));
+        this.songChord.setSongId(songId);
+        this.songChord.setMode("");
+        this.songChord.setNote(0);
     }
 }

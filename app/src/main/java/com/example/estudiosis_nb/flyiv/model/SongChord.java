@@ -21,6 +21,10 @@ public class SongChord {
 
     private int songId;
 
+    public SongChord() {
+
+    }
+
     public void setPosition(int position) {
         this.position = position;
     }

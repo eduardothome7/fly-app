@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.estudiosis_nb.flyiv.adapter.ChordGridAdapter;
 import com.example.estudiosis_nb.flyiv.adapter.RecordListAdapter;
+import com.example.estudiosis_nb.flyiv.dao.ChordDAO;
 import com.example.estudiosis_nb.flyiv.model.Song;
 import com.example.estudiosis_nb.flyiv.model.SongChord;
 import com.example.estudiosis_nb.flyiv.popup.SelectChordDialog;
@@ -26,20 +27,22 @@ import java.util.List;
 public class EditChords extends AppCompatActivity {
     Song song;
     TextView msgChord;
+    ChordDAO chordDAO;
     List<SongChord> chords = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_chords);
-
+        chordDAO = new ChordDAO(this);
         Intent it = getIntent();
         this.song = (Song) it.getSerializableExtra("song");
 
-        chords.add(new SongChord(0,0,""));
+        this.chords = this.chordDAO.fetchAll(this.song.getId());
+        /* chords.add(new SongChord(0,0,""));
         chords.add(new SongChord(2,0,""));
         chords.add(new SongChord(4,0,""));
-        chords.add(new SongChord(2,0,""));
+        chords.add(new SongChord(2,0,"")); */
 
         GridView chordGridView = (GridView) findViewById(R.id.gridChords);
         ChordGridAdapter adapter = new ChordGridAdapter(this.chords, this);
@@ -70,6 +73,7 @@ public class EditChords extends AppCompatActivity {
 
         Bundle args = new Bundle();
         args.putString("position", String.valueOf(songChord.getPosition()));
+        args.putString("songId", String.valueOf(song.getId()));
         args.putString("action", action);
         selectChordDialog.setArguments(args);
         selectChordDialog.show(getSupportFragmentManager(), "select dialog");

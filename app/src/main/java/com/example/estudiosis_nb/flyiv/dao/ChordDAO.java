@@ -42,28 +42,23 @@ public class ChordDAO {
         return listSongChords;
     }
 
-    public boolean create(Record record) {
+    public boolean create(SongChord chord) {
         SQLiteDatabase db = databaseTable.getWritableDatabase();
 
         ContentValues params = new ContentValues();
-        params.put("name", record.getName());
-        params.put("path", record.getPath());
-        params.put("api_path", record.getApiPath());
-        params.put("song_id", record.getSongId());
-        params.put("duration", record.getDuration());
+        params.put("position", chord.getPosition());
+        params.put("tone", chord.getNote());
+        params.put("mode", chord.getMode());
+        params.put("song_id", chord.getSongId());
 
         try {
-            db.insert("records", null, params);
+            db.insert("chords", null, params);
             db.close();
             return true;
         } catch(SQLiteAbortException error) {
             db.close();
             return false;
         }
-    }
-
-    public Record get(int id) {
-        return null;
     }
 
     public void destroy(int id) {

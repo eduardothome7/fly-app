@@ -85,6 +85,7 @@ public class SongAddActivity extends AppCompatActivity {
     }
 
     public void editChords(View view) {
+        //create song
         Intent it = new Intent(SongAddActivity.this, EditChords.class);
         it.putExtra("song", this.song);
         startActivityForResult(it, 1);
