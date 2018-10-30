@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,8 +36,10 @@ public class EditChords extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_chords);
         chordDAO = new ChordDAO(this);
+
         Intent it = getIntent();
         this.song = (Song) it.getSerializableExtra("song");
+        Log.e("DEBUG", "song_id: "+this.song.getId());
 
         this.chords = this.chordDAO.fetchAll(this.song.getId());
         /* chords.add(new SongChord(0,0,""));
@@ -47,6 +50,7 @@ public class EditChords extends AppCompatActivity {
         GridView chordGridView = (GridView) findViewById(R.id.gridChords);
         ChordGridAdapter adapter = new ChordGridAdapter(this.chords, this);
         chordGridView.setAdapter(adapter);
+        registerForContextMenu(chordGridView);
 
         chordGridView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener(){
@@ -73,10 +77,25 @@ public class EditChords extends AppCompatActivity {
 
         Bundle args = new Bundle();
         args.putString("position", String.valueOf(songChord.getPosition()));
-        args.putString("songId", String.valueOf(song.getId()));
+        args.putString("songId", String.valueOf(this.song.getId()));
         args.putString("action", action);
         selectChordDialog.setArguments(args);
         selectChordDialog.show(getSupportFragmentManager(), "select dialog");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        //return super.onContextItemSelected(item);
+        AdapterView.AdapterContextMenuInfo info = ( AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        /* switch (item.getItemId()) {
+            default:
+        } */
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.menu_delete_chord, menu);
     }
 
     @Override

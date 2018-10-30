@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseTable extends SQLiteOpenHelper {
-    private static String DB_NAME = "fly3.bd";
+    private static String DB_NAME = "fly4.bd";
 
     private static String CREATE_SONG = "CREATE TABLE songs" +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -25,9 +25,24 @@ public class DatabaseTable extends SQLiteOpenHelper {
     private static String CREATE_CHORDS = "CREATE TABLE chords" +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "position INTEGER," +
-            "tone INTEGER," +
+            "tone VARCHAR(10)," +
             "note INTEGER," +
             "song_id INTEGER" +
+            ")";
+
+    private static String CREATE_USERS = "CREATE TABLE users" +
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "name VARCHAR(100)," +
+            "email VARCHAR(60)," +
+            "password VARCHAR(20)," +
+            "picture VARCHAR(20)," +
+            "token VARCHAR(20)"+
+            ")";
+
+    private static String CREATE_SHARES = "CREATE TABLE shares" +
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "song_id INTEGER," +
+            "user_id INTEGER" +
             ")";
 
     public DatabaseTable(Context context){
@@ -39,6 +54,8 @@ public class DatabaseTable extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_SONG);
         sqLiteDatabase.execSQL(CREATE_RECORDS);
         sqLiteDatabase.execSQL(CREATE_CHORDS);
+        sqLiteDatabase.execSQL(CREATE_USERS);
+        sqLiteDatabase.execSQL(CREATE_SHARES);
     }
 
     @Override
@@ -46,8 +63,12 @@ public class DatabaseTable extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE songs");
         db.execSQL("DROP TABLE records");
         db.execSQL("DROP TABLE chords");
+        db.execSQL("DROP TABLE users");
+        db.execSQL("DROP TABLE shares");
         db.execSQL(CREATE_SONG);
         db.execSQL(CREATE_RECORDS);
         db.execSQL(CREATE_CHORDS);
+        db.execSQL(CREATE_USERS);
+        db.execSQL(CREATE_SHARES);
     }
 }

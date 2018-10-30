@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,11 @@ public class SelectChordDialog extends AppCompatDialogFragment {
     private ImageButton btnNext;
     private ImageButton btnPrev;
     private ChordDAO chordDAO;
+    private String action;
+    private Switch chkDmin;
+    private Switch chkSus;
+    private Switch chkMenor;
+    private Switch chkSeven;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -46,11 +52,18 @@ public class SelectChordDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.modal_chord,null);
         chordDAO = new ChordDAO(getContext());
 
+        chkMenor = (Switch) view.findViewById(R.id.chkMenor);
+        chkDmin  = (Switch) view.findViewById(R.id.chkDmin);
+        chkSus = (Switch) view.findViewById(R.id.chkSus);
+        chkSeven = (Switch) view.findViewById(R.id.chkSeven);
+
         btnNext = (ImageButton) view.findViewById(R.id.btnNext);
         btnPrev = (ImageButton) view.findViewById(R.id.btnPrev);
 
         txtSelectChordName = (TextView) view.findViewById(R.id.txtSelectChordName);
         populate();
+
+        //chkSeven.
 
         builder.setView(view)
                 .setTitle("Selecionar acorde")
@@ -63,13 +76,22 @@ public class SelectChordDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
                     @Override
                      public void onClick(DialogInterface dialog, int which) {
-
-                        if(chordDAO.create(songChord)){
+                        boolean success = false;
+                        Log.e("debug", "SONG: "+songChord.getPosition()+songChord.getSongId());
+                        if(action == "new"){
+                            if(chordDAO.create(songChord)){
+                              success = true;
+                            }
+                        } else {
+                            if(chordDAO.update(songChord)){
+                                success = true;
+                            }
+                        }
+                        if(success){
                             Toast.makeText(getContext(), "Acorde adicionado com sucesso!", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(getContext(), "Erro ao adicionar acorde.", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -129,11 +151,12 @@ public class SelectChordDialog extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         this.position = Integer.parseInt(args.getString("position"));
+        this.action = args.getString("action");
         this.songChord = new SongChord();
         this.chord = this.dicionaryChords.getChord(this.position);
-        songId = Integer.parseInt(args.getString("songId"));
-        this.songChord.setSongId(songId);
-        this.songChord.setMode("");
+        this.songChord.setSongId(Integer.parseInt(args.getString("songId")));
+        Log.e("DEBUG", "SONG_ID:"+Integer.parseInt(args.getString("songId")));
+        this.songChord.setTone("");
         this.songChord.setNote(0);
     }
 }

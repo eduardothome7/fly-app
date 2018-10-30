@@ -1,28 +1,27 @@
 package com.example.estudiosis_nb.flyiv.model;
 
 public class SongChord {
-
+    private int id;
     private int position;
     private int note;
-    private String mode;
+    private String tone;
 
-    public SongChord(int position, int note, int songId, String mode) {
+    public SongChord(int position, int note, int songId, String tone) {
         this.position = position;
         this.note = note;
-        this.mode = mode;
+        this.tone = tone;
         this.songId = songId;
     }
 
-    public SongChord(int position, int songId, String mode) {
+    public SongChord(int position, int songId, String tone) {
         this.position = position;
         this.songId = songId;
-        this.mode = mode;
+        this.tone = tone;
     }
 
     private int songId;
 
     public SongChord() {
-
     }
 
     public void setPosition(int position) {
@@ -41,12 +40,12 @@ public class SongChord {
         return position;
     }
 
-    public String getMode() {
-        return mode;
+    public String getTone() {
+        return tone;
     }
 
-    public void setMode(String mode) {
-        this.mode = mode;
+    public void setTone(String tone) {
+        this.tone = tone;
     }
 
     public int getNote() {
@@ -55,5 +54,9 @@ public class SongChord {
 
     public void setNote(int note) {
         this.note = note;
+    }
+
+    public int getId() {
+        return id;
     }
 }

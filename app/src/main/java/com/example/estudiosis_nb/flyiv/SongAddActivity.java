@@ -34,6 +34,7 @@ public class SongAddActivity extends AppCompatActivity {
     EditText txtDescription;
     TextView msgAudios;
     TextView txtChords;
+    SongDAO songDAO = new SongDAO(this);
     List<Record> records = new ArrayList<>();
     Snackbar mySnackbar;
     Boolean saved = false;
@@ -85,10 +86,11 @@ public class SongAddActivity extends AppCompatActivity {
     }
 
     public void editChords(View view) {
-        //create song
-        Intent it = new Intent(SongAddActivity.this, EditChords.class);
-        it.putExtra("song", this.song);
-        startActivityForResult(it, 1);
+        if(this.songDAO.create(this.song)){
+            Intent it = new Intent(SongAddActivity.this, EditChords.class);
+            it.putExtra("song", this.song);
+            startActivityForResult(it, 1);
+        }
     }
 
     public void populateFields(Song song){

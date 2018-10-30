@@ -94,7 +94,9 @@ public class SongDetailActivity extends AppCompatActivity {
     }
 
     public void share(MenuItem item) {
-
+        Intent it = new Intent(SongDetailActivity.this, ShareActivity.class );
+        it.putExtra("song", this.song);
+        startActivity(it);
     }
 
     public void openRecorder() {
