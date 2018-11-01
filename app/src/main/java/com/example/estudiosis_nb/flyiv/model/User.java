@@ -23,8 +23,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(int id, String name, String email, String picture) {
-        this.id = id;
+    public User(String name, String email, String picture) {
         this.name = name;
         this.email = email;
         this.picture = picture;
@@ -37,8 +36,6 @@ public class User implements Serializable {
         this.token = token;
         this.picture = picture;
     }
-
-
 
     public void setPicture(String picture) {
         this.picture = picture;
@@ -82,5 +79,8 @@ public class User implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public User(int id, String name, String email, String picture) {
     }
 }
