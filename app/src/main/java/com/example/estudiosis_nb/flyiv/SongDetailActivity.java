@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,7 +65,8 @@ public class SongDetailActivity extends AppCompatActivity {
         // bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
         Intent it = getIntent();
         if(it.getExtras() != null ){
-            this.song = (Song) it.getSerializableExtra("song");
+            //this.song = (Song) it.getSerializableExtra("song");
+            this.song = (Song) it.getExtras().getParcelable("song");
         } else {
             this.song = new Song("Nova composição","Clique aqui para editar a letra da composição,", USER_ID);
         }
@@ -86,11 +88,11 @@ public class SongDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 2){
+        //if(requestCode == 1){
             this.song = (Song) data.getSerializableExtra("song");
             this.populateFields(song);
-        }
+            Log.e("DEBUG", "back intent");
+            //}
     }
 
     public void share(MenuItem item) {

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,10 +30,16 @@ public class ShareActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
-
+        users.add(new User(2,"Felipe Almeida","fealmeida@hotmail.com",""));
+        adapter = new UserListAdapter(users, this, new UserListAdapter.BtnClickListener() {
+            @Override
+            public void onBtnClick(int position) {
+                Log.e("DEBUG", "Ok2!");
+            }
+        });
         txtTitle = (TextView) findViewById(R.id.txtTitle);
         Intent it = getIntent();
-        this.song = (Song) it.getSerializableExtra("song");
+        this.song = (Song) it.getExtras().getParcelable("song");
 
         txtTitle.setText(song.getTitle());
 

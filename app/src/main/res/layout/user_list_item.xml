@@ -8,6 +8,7 @@
     android:layout_marginLeft="12dp"
     android:layout_marginTop="20dp"
     android:layout_marginEnd="8dp"
+    android:focusable="false"
     android:layout_marginRight="12dp"
     android:orientation="horizontal"
     android:padding="10dp"
@@ -31,20 +32,20 @@
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 
+    <ImageButton
+        android:id="@+id/btnShare"
+        android:layout_width="23dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:background="@color/colorAccent"
+        android:tint="@android:color/white"
+        app:srcCompat="@drawable/ic_menu_send" />
+
     <TextView
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:layout_weight="1"
         android:text="TextView" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="23dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="5dp"
-        android:layout_weight="1"
-        android:tint="@android:color/white"
-        android:background="@color/colorAccent"
-        app:srcCompat="@drawable/ic_menu_send" />
 </LinearLayout>

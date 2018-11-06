@@ -1,10 +1,13 @@
 package com.example.estudiosis_nb.flyiv.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Song implements Serializable {
+public class Song implements Parcelable {
     private int id;
     private String title;
     private String chords = "";
@@ -12,6 +15,26 @@ public class Song implements Serializable {
     private int user_id;
     private List<SongChord> listChords = new ArrayList<>();
     private List<Record> records = new ArrayList<>();
+
+    protected Song(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        chords = in.readString();
+        description = in.readString();
+        user_id = in.readInt();
+    }
+
+    public static final Creator<Song> CREATOR = new Creator<Song>() {
+        @Override
+        public Song createFromParcel(Parcel in) {
+            return new Song(in);
+        }
+
+        @Override
+        public Song[] newArray(int size) {
+            return new Song[size];
+        }
+    };
 
     public List<Record> getRecords() {
         return records;
@@ -107,4 +130,19 @@ public class Song implements Serializable {
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(chords);
+        dest.writeString(description);
+        dest.writeInt(user_id);
+    }
+
 }

@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -62,11 +63,10 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                         Song song = songs.get(position);
-
                         Intent it = new Intent(MainActivity.this, SongDetailActivity.class);
-
                         it.putExtra("song",song);
-                        startActivity(it);
+                        Log.e("debug", String.valueOf(song.getId()));
+                        startActivityForResult(it, 1);
                     }
                 }
         );

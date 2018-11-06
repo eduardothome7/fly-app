@@ -38,7 +38,8 @@ public class EditChords extends AppCompatActivity {
         chordDAO = new ChordDAO(this);
 
         Intent it = getIntent();
-        this.song = (Song) it.getSerializableExtra("song");
+        //this.song = (Song) it.getSerializableExtra("song");
+        this.song = (Song) it.getExtras().getParcelable("song");
         Log.e("DEBUG", "song_id: "+this.song.getId());
 
         this.chords = this.chordDAO.fetchAll(this.song.getId());

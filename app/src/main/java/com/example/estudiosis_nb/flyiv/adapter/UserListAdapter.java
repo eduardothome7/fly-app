@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.estudiosis_nb.flyiv.R;
@@ -16,6 +17,7 @@ import java.util.List;
 public class UserListAdapter extends BaseAdapter {
     private List<User> listUsers;
     private Context context;
+    private BtnClickListener mClickListener = null;
 
     public List<User> getListUsers() {
         return listUsers;
@@ -25,9 +27,10 @@ public class UserListAdapter extends BaseAdapter {
         this.listUsers = listUsers;
     }
 
-    public UserListAdapter(List<User> listUsers, Context context) {
+    public UserListAdapter(List<User> listUsers, Context context, BtnClickListener listener) {
         this.listUsers = listUsers;
         this.context = context;
+        this.mClickListener = listener;
     }
 
     public Context getContext() {
@@ -66,6 +69,23 @@ public class UserListAdapter extends BaseAdapter {
         TextView txtEmail = (TextView) view.findViewById(R.id.txtEmail);
         txtEmail.setText(user.getEmail());
 
+        ImageButton btn = (ImageButton) view.findViewById(R.id.btnShare);
+        btn.setTag(i); //For passing the list item index
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if(mClickListener != null)
+                    mClickListener.onBtnClick((Integer) v.getTag());
+            }
+        });
+
         return view;
+
+    }
+
+    public interface BtnClickListener {
+        public abstract void onBtnClick(int position);
     }
 }
