@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.estudiosis_nb.flyiv.adapter.SongListAdapter;
@@ -21,6 +22,7 @@ import com.example.estudiosis_nb.flyiv.model.Song;
 import com.example.estudiosis_nb.flyiv.model.User;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStreamReader;
@@ -51,13 +53,13 @@ public class ShareActivity extends AppCompatActivity {
 
 
         requestQueue = Volley.newRequestQueue(this);
-        JsonObjectRequest objectRequest = new JsonObjectRequest(
+        JsonArrayRequest objectRequest = new JsonArrayRequest(
                 Request.Method.POST,
                 API_URL,
                 null,
-                new Response.Listener<JSONObject>() {
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         Log.e("API_DEBUG", "Ok2"+response.toString());
                     }
                 },
