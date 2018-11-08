@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -63,16 +64,16 @@ public class UserListAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.user_list_item, null);
 
-        TextView txtName = (TextView) view.findViewById(R.id.txtName);
+        TextView txtName = (TextView) view.findViewById(R.id.txtUserName);
         txtName.setText(user.getName());
 
-        TextView txtEmail = (TextView) view.findViewById(R.id.txtEmail);
-        txtEmail.setText(user.getEmail());
+        //TextView txtEmail = (TextView) view.findViewById(R.id.txtEmail);
+        //txtEmail.setText(user.getEmail());
 
-        ImageButton btn = (ImageButton) view.findViewById(R.id.btnShare);
+        Button btn = (Button) view.findViewById(R.id.btnShare);
         btn.setTag(i); //For passing the list item index
-        btn.setOnClickListener(new View.OnClickListener() {
 
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -80,9 +81,7 @@ public class UserListAdapter extends BaseAdapter {
                     mClickListener.onBtnClick((Integer) v.getTag());
             }
         });
-
         return view;
-
     }
 
     public interface BtnClickListener {

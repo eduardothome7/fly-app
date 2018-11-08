@@ -43,7 +43,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
         android:layout_marginBottom="0dp"
-        android:background="@drawable/fab_circle_bg"
         android:gravity="center"
         app:srcCompat="@drawable/ic_rec" />
 

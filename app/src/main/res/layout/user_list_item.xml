@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="368dp"
-    android:layout_height="495dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
     android:layout_marginLeft="12dp"
     android:layout_marginTop="20dp"
     android:layout_marginEnd="8dp"
-    android:focusable="false"
     android:layout_marginRight="12dp"
     android:orientation="horizontal"
     android:padding="10dp"
@@ -18,34 +17,29 @@
 
     <ImageView
         android:id="@+id/imageUser"
-        android:layout_width="18dp"
+        android:layout_width="2dp"
         android:layout_height="44dp"
         android:layout_weight="1"
         tools:srcCompat="@tools:sample/avatars[0]" />
 
     <TextView
-        android:id="@+id/txtName"
-        android:layout_width="136dp"
-        android:layout_height="47dp"
+        android:id="@+id/txtUserName"
+        android:layout_width="182dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingLeft="8dp"
+        android:paddingLeft="10dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btnShare"
         android:layout_width="23dp"
-        android:layout_height="37dp"
+        android:layout_height="29dp"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
-        android:background="@color/colorAccent"
-        android:tint="@android:color/white"
+        android:background="@color/colorPrimary"
+        android:text="Enviar"
+        android:textColor="@android:color/white"
         app:srcCompat="@drawable/ic_menu_send" />
 
-    <TextView
-        android:id="@+id/txtEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="47dp"
-        android:layout_weight="1"
-        android:text="TextView" />
 </LinearLayout>
