@@ -29,38 +29,25 @@ public class SessionDAO {
                 new String[]{"id", "token_auth",},
                 "",null,null,null,"");
 
+        boolean logged = false;
         while(cursor.moveToNext()){
-
+            logged = true;
+            break;
         }
 
-        return false;
+        return logged;
     }
 
-    public boolean create(Record record) {
+    public boolean deleteUserSession() {
         SQLiteDatabase db = databaseTable.getWritableDatabase();
 
-        ContentValues params = new ContentValues();
-        params.put("name", record.getName());
-        params.put("path", record.getPath());
-        params.put("api_path", record.getApiPath());
-        params.put("song_id", record.getSongId());
-        params.put("duration", record.getDuration());
-
         try {
-            db.insert("records", null, params);
+            db.delete("sessions", null, null);
             db.close();
             return true;
         } catch(SQLiteAbortException error) {
             db.close();
             return false;
         }
-    }
-
-    public Record get(int id) {
-        return null;
-    }
-
-    public void destroy(int id) {
-
     }
 }

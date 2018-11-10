@@ -9,7 +9,7 @@ import com.example.estudiosis_nb.flyiv.auth.AuthSession;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    AuthSession auth = new AuthSession();
+    AuthSession auth = new AuthSession(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

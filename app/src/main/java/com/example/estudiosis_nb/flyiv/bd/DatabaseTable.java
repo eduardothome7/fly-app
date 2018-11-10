@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseTable extends SQLiteOpenHelper {
-    private static String DB_NAME = "fly4.bd";
+    private static String DB_NAME = "fly5.bd";
 
     private static String CREATE_SONG = "CREATE TABLE songs" +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -45,6 +45,12 @@ public class DatabaseTable extends SQLiteOpenHelper {
             "user_id INTEGER" +
             ")";
 
+    private static String CREATE_SESSIONS = "CREATE TABLE sessions" +
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "user_id INTEGER," +
+            "auth_token INTEGER" +
+            ")";
+
     public DatabaseTable(Context context){
         super(context, DB_NAME, null, 4);
     }
@@ -56,6 +62,7 @@ public class DatabaseTable extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_CHORDS);
         sqLiteDatabase.execSQL(CREATE_USERS);
         sqLiteDatabase.execSQL(CREATE_SHARES);
+        sqLiteDatabase.execSQL(CREATE_SESSIONS);
     }
 
     @Override
@@ -65,10 +72,12 @@ public class DatabaseTable extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE chords");
         db.execSQL("DROP TABLE users");
         db.execSQL("DROP TABLE shares");
+        db.execSQL("DROP TABLE sessions");
         db.execSQL(CREATE_SONG);
         db.execSQL(CREATE_RECORDS);
         db.execSQL(CREATE_CHORDS);
         db.execSQL(CREATE_USERS);
         db.execSQL(CREATE_SHARES);
+        db.execSQL(CREATE_SESSIONS);
     }
 }

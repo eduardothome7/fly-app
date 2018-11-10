@@ -9,10 +9,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,11 +28,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.estudiosis_nb.flyiv.adapter.SongListAdapter;
+import com.example.estudiosis_nb.flyiv.auth.AuthSession;
 import com.example.estudiosis_nb.flyiv.dao.SongDAO;
 import com.example.estudiosis_nb.flyiv.model.Record;
 import com.example.estudiosis_nb.flyiv.model.Song;
@@ -40,13 +49,17 @@ public class MainActivity extends AppCompatActivity
     SongListAdapter adapter;
     ActionBar actionBar;
     SongDAO songDAO;
-
+    private MainActivity.SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+    AuthSession authSession;
     final int REQUEST_PERMISSION_CODE = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        authSession = new AuthSession(this);
 
         if(checkPermissionFromDevice()) {
 
@@ -57,6 +70,17 @@ public class MainActivity extends AppCompatActivity
         adapter = new SongListAdapter(songs, this);
         final ListView mainListView = (ListView) findViewById(R.id.mainListView);
         mainListView.setAdapter(adapter);
+
+        mSectionsPagerAdapter = new MainActivity.SectionsPagerAdapter(getSupportFragmentManager());
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container_main       );
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         mainListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener(){
@@ -186,22 +210,67 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_logout) {
+            if(authSession.destroy()){
+                Intent it = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(it);
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public static class PlaceholderFragment extends Fragment {
+
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        public PlaceholderFragment() {
+        }
+
+        public static Main2Activity.PlaceholderFragment newInstance(int sectionNumber) {
+            Main2Activity.PlaceholderFragment fragment = new Main2Activity.PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            return rootView;
+        }
+    }
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 2:
+                    TabSharedSongs tabShared = new TabSharedSongs();
+                    return tabShared;
+
+            }
+            Log.e("DEBUG","Position: "+position);
+            return MainActivity.PlaceholderFragment.newInstance(position + 1);
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 3;
+        }
     }
 }

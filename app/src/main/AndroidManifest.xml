@@ -41,8 +41,9 @@
         <activity
             android:name=".SongAddActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".SignInActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".SignInActivity"
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,6 +53,10 @@
         <activity
             android:name=".SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

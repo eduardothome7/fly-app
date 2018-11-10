@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:padding="10dp"
     tools:context=".SignInActivity">
 
@@ -11,42 +12,66 @@
         android:id="@+id/email_login_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="57dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars[3]" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp">
 
             <AutoCompleteTextView
-                android:id="@+id/email"
+                android:id="@+id/email_sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryLight"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:padding="8dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:singleLine="true"
+                android:textAppearance="@style/MyActionBarTitleText"
+                android:textColorHint="@color/colorFabText" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/password_sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryLight"
                 android:hint="@string/prompt_password"
                 android:imeActionId="6"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:padding="8dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:singleLine="true"
+                android:textAppearance="@style/MyActionBarTitleText"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorFabText"
+                android:top="30dp" />
 
         </android.support.design.widget.TextInputLayout>
 
-        <TableRow android:layout_marginTop="40dp">
+        <TableRow android:layout_marginTop="30dp">
 
             <Button
                 android:id="@+id/btn_open_sign_up"
@@ -54,18 +79,20 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:onClick="SignUp"
-                android:text="Cadastrar" />
+                android:background="@android:color/transparent"
+                android:onClick="singUp"
+                android:text="Cadastrar"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/email_sign_in_button"
-                android:layout_width="120dp"
+                android:layout_width="122dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="16dp"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorAccent"
+                android:onClick="signIn"
                 android:text="@string/action_sign_in"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
