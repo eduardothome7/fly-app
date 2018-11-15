@@ -3,6 +3,7 @@ package com.example.estudiosis_nb.flyiv;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ public class SignInActivity extends AppCompatActivity {
         if(auth.isAuth()){
             Intent it = new Intent(SignInActivity.this, MainActivity.class);
             startActivity(it);
+        } else {
+
         }
     }
 
@@ -41,12 +44,13 @@ public class SignInActivity extends AppCompatActivity {
 
         User authUser = this.auth.auth(email, password, this);
 
-        if(authUser != null){
-            Intent it = new Intent(SignInActivity.this, MainActivity.class);
-            startActivity(it);
-        } else {
+        if(authUser == null){
             Toast toast = Toast.makeText(this,"Email/Senha incorretos. Tente novamente",Toast.LENGTH_LONG);
             toast.show();
+        } else {
+            Log.e("DEBUG SIGN IN 2", authUser.getName());
+            Intent it = new Intent(SignInActivity.this, MainActivity.class);
+            startActivity(it);
         }
     }
 }

@@ -12,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.estudiosis_nb.flyiv.dao.SessionDAO;
+import com.example.estudiosis_nb.flyiv.model.Session;
 import com.example.estudiosis_nb.flyiv.model.User;
 
 import org.json.JSONArray;
@@ -28,14 +29,11 @@ public class AuthService {
     private RequestQueue requestQueue;
     private SessionDAO sessionDAO;
     private static boolean success;
-    private User user;
+    private static User user;
+    private Session session = new Session();
 
     public boolean isSuccess() {
         return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
     }
 
     public AuthService(int USER_ID, String TOKEN) {
@@ -79,7 +77,7 @@ public class AuthService {
 
     public void setUser(User userauth, boolean success){
         this.user = userauth;
-        Log.e("debug", user.getName());
+        this.success = true;
     }
 
     public User auth(final String email, final String password, Context context){
@@ -103,11 +101,12 @@ public class AuthService {
 
                     if(status.equals("success")){
                         JSONObject user = new JSONObject(res.getString("user"));
-                        Log.e("API_DEBUG", user.getString("name"));
                         int id = Integer.parseInt(user.getString("id"));
                         String name = user.getString("name");
                         String email = user.getString("email");
-                        User userAuth = new User(id, name, email, "");
+                        String authToken = user.getString("auth_token");
+                        String picture = user.getString("picture");
+                        User userAuth = new User(id, name, email, authToken, picture);
                         setUser(userAuth, success);
                     } else {
                         Log.e("API_DEBUG", status);
@@ -115,12 +114,10 @@ public class AuthService {
                 } catch (JSONException e) {
 
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         }){
             @Override
@@ -131,19 +128,21 @@ public class AuthService {
                 return parameters;
             }
         };
-        Log.e("debug","ok2");
         requestQueue.add(stringRequest);
 
-
-
-        if(success){
-            User user = new User(0,"","","");
-            Log.e("DEBUG","OK2");
-            //return user;
-            return null;
-            //
+        if(this.success){
+            this.session.setUser(this.user);
+            if(sessionDAO.create(session)){
+                return this.user;
+            }
         } else {
-            return null;
+            setUser(new User(0,"","",""),false);
+            return this.user;
         }
+        return null;
+    }
+
+    public User getUser() {
+        return this.sessionDAO.currentUser();
     }
 }

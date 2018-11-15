@@ -110,7 +110,14 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        View hView =  navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView userNameNav = (TextView) hView.findViewById(R.id.userNameNav);
+        userNameNav.setText(this.authService.getUser().getName());
+        TextView userEmailNav = (TextView) hView.findViewById(R.id.userEmailNav);
+        userEmailNav.setText(this.authService.getUser().getEmail());
     }
 
     private void requestPermission() {

@@ -87,4 +87,7 @@ public class User implements Serializable {
         this.email = picture;
         this.picture = picture;
     }
+
+    public User() {
+    }
 }

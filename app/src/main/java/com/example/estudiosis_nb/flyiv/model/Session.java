@@ -3,6 +3,7 @@ package com.example.estudiosis_nb.flyiv.model;
 public class Session {
     private int id;
     private int userId;
+    private User user;
     private String authToken;
 
     public Session(int id, int userId) {
@@ -37,5 +38,20 @@ public class Session {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Session(User user) {
+        this.user = user;
+    }
+
+    public Session() {
     }
 }

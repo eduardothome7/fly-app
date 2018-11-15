@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseTable extends SQLiteOpenHelper {
-    private static String DB_NAME = "fly5.bd";
+    private static String DB_NAME = "flyapp.bd";
 
     private static String CREATE_SONG = "CREATE TABLE songs" +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -48,7 +48,10 @@ public class DatabaseTable extends SQLiteOpenHelper {
     private static String CREATE_SESSIONS = "CREATE TABLE sessions" +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "user_id INTEGER," +
-            "auth_token INTEGER" +
+            "name VARCHAR(120)," +
+            "email VARCHAR(100),"+
+            "picture VARCHAR(80),"+
+            "auth_token VARCHAR(100)" +
             ")";
 
     public DatabaseTable(Context context){
