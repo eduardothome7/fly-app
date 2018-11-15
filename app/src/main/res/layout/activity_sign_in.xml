@@ -40,7 +40,8 @@
                 android:paddingRight="4dp"
                 android:singleLine="true"
                 android:textAppearance="@style/MyActionBarTitleText"
-                android:textColorHint="@color/colorFabText" />
+                android:textColor="@color/colorFabText"
+                android:textColorHint="@color/colorPrimaryDark" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -65,8 +66,8 @@
                 android:paddingRight="4dp"
                 android:singleLine="true"
                 android:textAppearance="@style/MyActionBarTitleText"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="@color/colorFabText"
+                android:textColor="@color/colorFabText"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:top="30dp" />
 
         </android.support.design.widget.TextInputLayout>

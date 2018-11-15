@@ -3,12 +3,9 @@ package com.example.estudiosis_nb.flyiv;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -35,9 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.estudiosis_nb.flyiv.adapter.SongListAdapter;
-import com.example.estudiosis_nb.flyiv.auth.AuthSession;
+import com.example.estudiosis_nb.flyiv.service.AuthService;
 import com.example.estudiosis_nb.flyiv.dao.SongDAO;
-import com.example.estudiosis_nb.flyiv.model.Record;
 import com.example.estudiosis_nb.flyiv.model.Song;
 
 import java.util.ArrayList;
@@ -51,7 +47,7 @@ public class MainActivity extends AppCompatActivity
     SongDAO songDAO;
     private MainActivity.SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    AuthSession authSession;
+    AuthService authService;
     final int REQUEST_PERMISSION_CODE = 1000;
 
     @Override
@@ -59,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        authSession = new AuthSession(this);
+        authService = new AuthService(this);
 
         if(checkPermissionFromDevice()) {
 
@@ -213,7 +209,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_logout) {
-            if(authSession.destroy()){
+            if(authService.destroy()){
                 Intent it = new Intent(MainActivity.this, SignInActivity.class);
                 startActivity(it);
             }

@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.estudiosis_nb.flyiv.auth.AuthSession;
+import com.example.estudiosis_nb.flyiv.service.AuthService;
 import com.example.estudiosis_nb.flyiv.model.User;
 
 public class SignInActivity extends AppCompatActivity {
-    AuthSession auth = new AuthSession(this);
+    AuthService auth = new AuthService(this);
     private EditText editEmail;
     private EditText editPassword;
 

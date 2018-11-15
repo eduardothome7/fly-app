@@ -51,7 +51,6 @@ public class ShareActivity extends AppCompatActivity {
         User user6 = new User(6,"Derek","vinilima@hotmail.com","");
         User user7 = new User(7,"Mark","vinilima@hotmail.com","");
 
-
         requestQueue = Volley.newRequestQueue(this);
         JsonArrayRequest objectRequest = new JsonArrayRequest(
                 Request.Method.POST,

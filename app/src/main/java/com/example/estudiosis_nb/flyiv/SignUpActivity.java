@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.estudiosis_nb.flyiv.auth.AuthSession;
+import com.example.estudiosis_nb.flyiv.service.AuthService;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    AuthSession auth = new AuthSession(this);
+    AuthService auth = new AuthService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
