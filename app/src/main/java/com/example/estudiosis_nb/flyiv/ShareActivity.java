@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -103,6 +104,19 @@ public class ShareActivity extends AppCompatActivity {
 
         //pDialogList = ProgressDialog.show(this, "Aviso", "Buscando itens. Por favor aguarde.");
 
+    }
 
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //onBackPressed();
+                Intent intent = new Intent(this, SongDetailActivity.class);
+                intent.putExtra("song", this.song);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

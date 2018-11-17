@@ -75,7 +75,7 @@ public class AuthService {
         this.TOKEN = TOKEN;
     }
 
-    public void setUser(User userauth, boolean success){
+    public void setUser(User userauth){
         this.user = userauth;
         this.success = true;
     }
@@ -107,7 +107,7 @@ public class AuthService {
                         String authToken = user.getString("auth_token");
                         String picture = user.getString("picture");
                         User userAuth = new User(id, name, email, authToken, picture);
-                        setUser(userAuth, success);
+                        setUser(userAuth);
                     } else {
                         Log.e("API_DEBUG", status);
                     }
@@ -131,15 +131,18 @@ public class AuthService {
         requestQueue.add(stringRequest);
 
         if(this.success){
+            Log.e("debug","success");
             this.session.setUser(this.user);
             if(sessionDAO.create(session)){
                 return this.user;
+            } else {
+                Log.e("debug","error 2");
             }
         } else {
-            setUser(new User(0,"","",""),false);
-            return this.user;
+            this.user = null;
         }
-        return null;
+        Log.e("debug","return null");
+        return this.user;
     }
 
     public User getUser() {

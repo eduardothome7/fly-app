@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -100,10 +101,18 @@ public class EditChords extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent();
-        intent.putExtra("song", this.song);
-        setResult(2, intent);
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //onBackPressed();
+                Log.e("DEBUG", "OK7");
+                Intent intent = new Intent(this, SongDetailActivity.class);
+                intent.putExtra("song", this.song);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

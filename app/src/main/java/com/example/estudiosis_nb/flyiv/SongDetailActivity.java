@@ -64,12 +64,7 @@ public class SongDetailActivity extends AppCompatActivity {
         // ActionBar bar = getSupportActionBar();
         // bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
         Intent it = getIntent();
-        if(it.getExtras() != null ){
-            //this.song = (Song) it.getSerializableExtra("song");
-            this.song = (Song) it.getExtras().getParcelable("song");
-        } else {
-            this.song = new Song("Nova composição","Clique aqui para editar a letra da composição,", USER_ID);
-        }
+        this.song = (Song) it.getExtras().getParcelable("song");
         this.fetchRecords();
         this.populateFields(this.song);
     }

@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity
     public void onResume() {
         super.onResume();
         songDAO = new SongDAO(this);
-        songs = songDAO.fetchAll();
+        songs = songDAO.fetchAll(this.authService.getUser().getId());
 
         // List<Record> records = new ArrayList<Record>();
         /* Record rec1 = new Record("rec001.mp3",210,"/local/files/");
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
     }
 }

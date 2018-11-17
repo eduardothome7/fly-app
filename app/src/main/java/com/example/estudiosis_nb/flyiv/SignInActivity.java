@@ -42,15 +42,20 @@ public class SignInActivity extends AppCompatActivity {
         String email = this.editEmail.getText().toString();
         String password = this.editPassword.getText().toString();
 
-        User authUser = this.auth.auth(email, password, this);
-
-        if(authUser == null){
-            Toast toast = Toast.makeText(this,"Email/Senha incorretos. Tente novamente",Toast.LENGTH_LONG);
+        if(email.equals("")|| password.equals("") ){
+            Toast toast = Toast.makeText(this,"Preencha email/senha", Toast.LENGTH_LONG);
             toast.show();
         } else {
-            Log.e("DEBUG SIGN IN 2", authUser.getName());
-            Intent it = new Intent(SignInActivity.this, MainActivity.class);
-            startActivity(it);
+            User authUser = this.auth.auth(email, password, this);
+
+            if(authUser == null){
+                Toast toast = Toast.makeText(this,"Email/Senha incorretos. Tente novamente",Toast.LENGTH_LONG);
+                toast.show();
+            } else {
+                Intent it = new Intent(SignInActivity.this, MainActivity.class);
+                startActivity(it);
+            }
         }
+
     }
 }

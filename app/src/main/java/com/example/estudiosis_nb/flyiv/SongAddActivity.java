@@ -20,6 +20,7 @@ import com.example.estudiosis_nb.flyiv.adapter.SongListAdapter;
 import com.example.estudiosis_nb.flyiv.dao.SongDAO;
 import com.example.estudiosis_nb.flyiv.model.Record;
 import com.example.estudiosis_nb.flyiv.model.Song;
+import com.example.estudiosis_nb.flyiv.service.AuthService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,12 +38,16 @@ public class SongAddActivity extends AppCompatActivity {
     SongDAO songDAO = new SongDAO(this);
     List<Record> records = new ArrayList<>();
     Snackbar mySnackbar;
+    AuthService authService;
     Boolean saved = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_add);
+
+        authService = new AuthService(this);
+
 
         this.populateFields(this.song);
     }
@@ -73,6 +78,7 @@ public class SongAddActivity extends AppCompatActivity {
     public void save(MenuItem item) {
         this.song.setTitle(this.txtTitle.getText().toString());
         this.song.setDescription(this.txtDescription.getText().toString());
+        this.song.setUserId(this.authService.getUser().getId());
 
         if(this.dao.create(this.song)){
             mySnackbar = Snackbar.make(findViewById(R.id.txtDescription),

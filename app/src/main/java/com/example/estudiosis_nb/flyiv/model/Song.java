@@ -12,7 +12,7 @@ public class Song implements Parcelable {
     private String title;
     private String chords = "";
     private String description;
-    private int user_id;
+    private int userId;
     private List<SongChord> listChords = new ArrayList<>();
     private List<Record> records = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class Song implements Parcelable {
         title = in.readString();
         chords = in.readString();
         description = in.readString();
-        user_id = in.readInt();
+        userId = in.readInt();
     }
 
     public static final Creator<Song> CREATOR = new Creator<Song>() {
@@ -60,10 +60,10 @@ public class Song implements Parcelable {
         this.description = description;
     }
 
-    public Song(String title, String description, int user_id) {
+    public Song(String title, String description, int userId) {
         this.title = title;
         this.description = description;
-        this.user_id = user_id;
+        this.userId = userId;
     }
 
     public void upTone(int tone){
@@ -86,11 +86,11 @@ public class Song implements Parcelable {
 
     }
 
-    public Song(int id, String title, String description, int user_id) {
+    public Song(int id, String title, String description, int userId) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.user_id = user_id;
+        this.userId = userId;
     }
 
     public Song(String title, String description, String chords) {
@@ -123,12 +123,12 @@ public class Song implements Parcelable {
         this.description = description;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -142,7 +142,6 @@ public class Song implements Parcelable {
         dest.writeString(title);
         dest.writeString(chords);
         dest.writeString(description);
-        dest.writeInt(user_id);
+        dest.writeInt(userId);
     }
-
 }

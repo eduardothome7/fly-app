@@ -21,11 +21,11 @@ public class SongDAO {
         databaseTable = new DatabaseTable(context);
     }
 
-    public List<Song> fetchAll() {
+    public List<Song> fetchAll(int userId) {
         SQLiteDatabase db = databaseTable.getReadableDatabase();
         Cursor cursor = db.query("songs",
                 new String[]{"id","title","description"},
-                null,null,null,null,"title");
+                "user_id = "+userId,null,null,null,"title");
 
         List<Song> listSongs= new ArrayList<>();
 
@@ -46,6 +46,7 @@ public class SongDAO {
         ContentValues params = new ContentValues();
         params.put("title", song.getTitle());
         params.put("description", song.getDescription());
+        params.put("user_id", song.getUserId());
 
         try {
             db.insert("songs", null, params);

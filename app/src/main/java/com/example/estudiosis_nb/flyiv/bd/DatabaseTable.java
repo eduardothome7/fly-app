@@ -5,12 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseTable extends SQLiteOpenHelper {
-    private static String DB_NAME = "flyapp.bd";
+    private static String DB_NAME = "flyappv1.bd";
 
     private static String CREATE_SONG = "CREATE TABLE songs" +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "title VARCHAR(30)," +
-            "description VARCHAR(600)" +
+            "description VARCHAR(600)," +
+            "user_id INTEGER " +
             ")";
 
     private static String CREATE_RECORDS = "CREATE TABLE records" +
