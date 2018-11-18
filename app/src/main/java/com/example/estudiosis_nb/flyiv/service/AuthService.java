@@ -25,7 +25,7 @@ import java.util.Map;
 public class AuthService {
     private int USER_ID;
     private String TOKEN;
-    private final String API_URL = "http://estudiosis.com.br/api_v1_tcc/?path=users_sign_in";
+    private final String API_URL = "http://estudiosis.com.br/api_v1_tcc/?path=";
     private RequestQueue requestQueue;
     private SessionDAO sessionDAO;
     private static boolean success;
@@ -56,7 +56,11 @@ public class AuthService {
     }
 
     public boolean isAuth(){
-        return false;
+        if(this.sessionDAO.currentUser().getToken() != null){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getUSER_ID() {
@@ -78,6 +82,64 @@ public class AuthService {
     public void setUser(User userauth){
         this.user = userauth;
         this.success = true;
+        Log.e("AUTH_DEBUG", "set user");
+    }
+
+    public User create(final User user, Context context){
+        final boolean success = false;
+
+        requestQueue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, API_URL+"users_sign_up", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject res = new JSONObject(response);
+                    String status = res.getString("status");
+                    Log.e("API DEBUG","OK2");
+                    if(status.equals("success")){
+                        JSONObject user = new JSONObject(res.getString("user"));
+                        int id = Integer.parseInt(user.getString("id"));
+                        String name = user.getString("name");
+                        String email = user.getString("email");
+                        String authToken = user.getString("auth_token");
+                        String picture = user.getString("picture");
+                        User userAuth = new User(id, name, email, authToken, picture);
+                        setUser(userAuth);
+                    } else {
+                        Log.e("API_DEBUG", status);
+                    }
+                } catch (JSONException e) {
+
+                }
+            }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parameters = new HashMap<String,String>();
+                parameters.put("name", user.getName());
+                parameters.put("email", user.getEmail());
+                parameters.put("password", user.getName());
+                return parameters;
+            }
+        };
+        requestQueue.add(stringRequest);
+
+        if(this.success){
+            Log.e("debug","success");
+            this.session.setUser(this.user);
+            if(sessionDAO.create(session)){
+                return this.user;
+            } else {
+                Log.e("debug","error 2");
+            }
+        } else {
+            this.user = null;
+        }
+        return this.user;
     }
 
     public User auth(final String email, final String password, Context context){
@@ -91,7 +153,7 @@ public class AuthService {
 
         // Busca na API por email e senha
         requestQueue = Volley.newRequestQueue(context);
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, API_URL, new Response.Listener<String>() {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, API_URL+"users_sign_in", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -141,7 +203,6 @@ public class AuthService {
         } else {
             this.user = null;
         }
-        Log.e("debug","return null");
         return this.user;
     }
 
